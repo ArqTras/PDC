@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network · Privacy Data Coin</title>
+  <meta name="description" content="PDC mainnet parameters: genesis, ports, RandomARQ, block reward, hard forks, and address prefixes.">
+  <link rel="canonical" href="https://privacydatacoin.com/network.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,520&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;520;640&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="wrap nav">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#10241d"/><circle cx="32" cy="32" r="20" fill="none" stroke="#c6f5d4" stroke-width="2.4"/><path d="M22 33.5h20M32 18.5v10.2" fill="none" stroke="#e4c27a" stroke-width="2.4" stroke-linecap="round"/><path d="M24 40.5h16" fill="none" stroke="#c6f5d4" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2.5 3.2"/></svg>
+        PDC
+      </a>
+      <button class="menu-btn" type="button" data-menu aria-label="Menu">Menu</button>
+      <nav class="nav-links">
+        <a href="features.html" data-i18n="nav.features">Protocol</a>
+        <a href="network.html" aria-current="page" data-i18n="nav.network">Network</a>
+        <a href="download.html" data-i18n="nav.download">Download</a>
+        <a href="https://github.com/arqtras/pdc" data-i18n="nav.source">Source</a>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="pl">PL</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap page-hero">
+      <p class="kicker" data-i18n="net.kicker">Network identity</p>
+      <h1 data-i18n="net.title">The numbers a node actually boots with.</h1>
+      <p class="lede" data-i18n="net.lede">The table comes from src/currency_core/currency_config.h and from the v2.0.0 release notes. When the sources change, this page should change with them.</p>
+    </div>
+    <section class="wrap">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td data-i18n="net.k.ticker">Ticker</td><td><code>PDC</code></td></tr>
+            <tr><td data-i18n="net.k.formation">Formation version</td><td>100</td></tr>
+            <tr><td>Genesis</td><td><code>df35cba557c857756f20612ce3c9d2aa315d0ae8fc2aaffe6c5c59d37e00b10a</code></td></tr>
+            <tr><td>Premine</td><td>0</td></tr>
+            <tr><td data-i18n="net.k.reward">Block reward</td><td data-i18n="net.v.reward">1 PDC, flat at every height</td></tr>
+            <tr><td data-i18n="net.k.decimals">Decimals</td><td>12</td></tr>
+            <tr><td data-i18n="net.k.fee">Default fee</td><td>0.01 PDC</td></tr>
+            <tr><td data-i18n="net.k.target">Block target</td><td data-i18n="net.v.target">60 seconds</td></tr>
+            <tr><td data-i18n="net.k.targets">PoW / PoS targets</td><td data-i18n="net.v.targets">120 seconds / 120 seconds</td></tr>
+            <tr><td data-i18n="net.k.pow">Proof of work</td><td data-i18n="net.v.pow">RandomARQ, epoch length 2,048, 43-byte blob</td></tr>
+            <tr><td data-i18n="net.k.pos">Proof of stake</td><td data-i18n="net.v.pos">From height 0. Coinstake age 10 blocks. Zarcanum after height 100.</td></tr>
+            <tr><td data-i18n="net.k.run">PoS run limit</td><td data-i18n="net.v.run">21 sequential PoS blocks</td></tr>
+            <tr><td data-i18n="net.k.decoy">Decoy set</td><td data-i18n="net.v.decoy">10 default, 15 mandatory after hard fork 4</td></tr>
+            <tr><td data-i18n="net.k.unlock">Coinbase unlock</td><td data-i18n="net.v.unlock">10 blocks</td></tr>
+            <tr><td>P2P / RPC / stratum</td><td>19121 / 19211 / 19777</td></tr>
+            <tr><td data-i18n="net.seed">Hardcoded seed node</td><td><code>169.58.142.131:19121</code></td></tr>
+            <tr><td data-i18n="net.k.hf">Hard forks</td><td data-i18n="net.v.hf">HF1 after 20, HF2 after 40, HF3 after 60, HF4 Zarcanum after 100. HF5 is not scheduled.</td></tr>
+            <tr><td data-i18n="net.k.alias">Alias fee</td><td data-i18n="net.v.alias">Burned. Minimum public short name is 6 characters.</td></tr>
+            <tr><td data-i18n="net.k.list">Asset whitelist</td><td><code>https://api.privacydatacoin.com/assets_whitelist.json</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 data-i18n="net.h2" style="margin-top:2.2rem">Addresses</h2>
+      <p class="note" data-i18n="net.addr">A standard address starts with Px, an integrated address with iP, an auditable address with aPx, and an auditable integrated address with aiPX. There are 12 decimal places. The default and minimum fee is 0.01 PDC.</p>
+    </section>
+  </main>
+  <footer class="wrap site-footer">
+    <span data-i18n="footer.tag">Privacy Data Coin. Parameters taken from the pdc source tree.</span>
+    <span><a href="https://github.com/arqtras/pdc/blob/pdc/src/currency_core/currency_config.h">currency_config.h</a></span>
+  </footer>
+  <script src="js/i18n.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
