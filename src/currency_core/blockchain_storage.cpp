@@ -1190,7 +1190,7 @@ wide_difficulty_type blockchain_storage::get_next_diff_conditional(bool pos) con
     //skip genesis timestamp
     CRITICAL_REGION_LOCAL(m_read_lock);
     if (!m_db_blocks.size())
-      return DIFFICULTY_POW_STARTER;
+      return pos ? DIFFICULTY_POS_STARTER : DIFFICULTY_POW_STARTER;
   }
 
   std::vector<uint64_t> timestamps;
@@ -1230,7 +1230,7 @@ wide_difficulty_type blockchain_storage::get_next_diff_conditional_alt(bool pos,
   {
     CRITICAL_REGION_LOCAL(m_read_lock);
     if (!m_db_blocks.size())
-      return DIFFICULTY_POW_STARTER;
+      return pos ? DIFFICULTY_POS_STARTER : DIFFICULTY_POW_STARTER;
   }
   std::vector<uint64_t> timestamps;
   std::vector<wide_difficulty_type> commulative_difficulties;
@@ -1519,24 +1519,25 @@ bool blockchain_storage::create_block_template(const create_block_template_param
   diffic = get_next_diff_conditional(pos);
   CHECK_AND_ASSERT_MES(diffic, false, "get_next_diff_conditional failed");
 
-  // PoW template timestamp must be >= median of last N blocks.
-  // After a run of PoS blocks (which may use timestamps up to CURRENCY_POS_BLOCK_FUTURE_TIME_LIMIT ahead),
-  // wall-clock time can temporarily lag the median; bump the template timestamp instead of failing —
-  // otherwise stratum/PoW mining is stuck until the clock catches up.
-  if (!pos)
-  {
-    uint64_t median_ts = get_last_n_blocks_timestamps_median(BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW);
-    if (b.timestamp < median_ts)
-    {
-      if (!params.ignore_pow_ts_check)
+      // PoW template timestamp must be >= median of last N blocks.
+      // After a run of PoS blocks (which may use timestamps up to CURRENCY_POS_BLOCK_FUTURE_TIME_LIMIT ahead),
+      // wall-clock time can temporarily lag the median; bump the template timestamp instead of failing —
+      // otherwise stratum/PoW mining is stuck until the clock catches up.
+      // Note: ignore_pow_ts_check only silences the yellow log; the bump still applies (consensus-safe).
+      if (!pos)
       {
-        LOG_PRINT_YELLOW("PoW block template timestamp " << b.timestamp << " < median of last "
-          << BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW << " blocks (" << median_ts
-          << "); bumping template timestamp to median", LOG_LEVEL_0);
+        uint64_t median_ts = get_last_n_blocks_timestamps_median(BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW);
+        if (b.timestamp < median_ts)
+        {
+          if (!params.ignore_pow_ts_check)
+          {
+            LOG_PRINT_YELLOW("PoW block template timestamp " << b.timestamp << " < median of last "
+              << BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW << " blocks (" << median_ts
+              << "); bumping template timestamp to median", LOG_LEVEL_0);
+          }
+          b.timestamp = median_ts;
+        }
       }
-      b.timestamp = median_ts;
-    }
-  }
 
 
 
@@ -2111,8 +2112,8 @@ bool blockchain_storage::is_reorganize_required(const block_extended_info& main_
     boost::multiprecision::uint1024_t main = 0;
     if (m_core_runtime_config.is_hardfork_active_for_height(ZANO_HARDFORK_04_ZARCANUM, alt_chain_bei.height))
     {
-      alt = get_a_to_b_relative_cumulative_difficulty(difficulty_pos_at_split_point, difficulty_pow_at_split_point, alt_cumul_diff, main_cumul_diff);
-      main = get_a_to_b_relative_cumulative_difficulty(difficulty_pos_at_split_point, difficulty_pow_at_split_point, main_cumul_diff, alt_cumul_diff);
+      alt = get_a_to_b_relative_cumulative_difficulty_hf4(difficulty_pos_at_split_point, difficulty_pow_at_split_point, alt_cumul_diff, main_cumul_diff);
+      main = get_a_to_b_relative_cumulative_difficulty_hf4(difficulty_pos_at_split_point, difficulty_pow_at_split_point, main_cumul_diff, alt_cumul_diff);
     }
     else
     {
@@ -2200,6 +2201,10 @@ bool blockchain_storage::pre_validate_relayed_block(block& bl, block_verificatio
   }
   else
   {
+    // RandomARQ / XMRig only search a 32-bit nonce space (same as main-chain PoW validation).
+    CHECK_AND_ASSERT_MES_CUSTOM(get_block_height(bl) == 0 || bl.nonce <= UINT32_MAX, false, bvc.m_verification_failed = true,
+      "Relayed PoW block nonce " << bl.nonce << " exceeds 32-bit space used by RandomARQ/XMRig");
+
     proof_hash = get_block_longhash(bl); //get_block_longhash(bl);
 
     if (!check_hash_64(proof_hash, current_diffic))
@@ -6482,6 +6487,9 @@ wide_difficulty_type blockchain_storage::get_adjusted_cumulative_difficulty_for_
   }
   if (!last_pos_diff)
     return next_diff;
+  // No PoW yet (or only PoS after genesis gap): do not zero pos-adjusted difficulty.
+  if (!last_pow_diff)
+    return next_diff;
   return next_diff*last_pow_diff/last_pos_diff;
 }
 //------------------------------------------------------------------
@@ -6528,6 +6536,8 @@ wide_difficulty_type blockchain_storage::get_adjusted_cumulative_difficulty_for_
     }
   }
   if (!last_pos_diff)
+    return next_diff;
+  if (!last_pow_diff)
     return next_diff;
   return next_diff*last_pow_diff / last_pos_diff;
 }

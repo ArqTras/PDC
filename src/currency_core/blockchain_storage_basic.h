@@ -136,7 +136,7 @@ namespace currency
     account_public_address stakeholder_address;
     blobdata ex_nonce;
     bool pos = false;
-    bool ignore_pow_ts_check = false;
+    bool ignore_pow_ts_check = false; // only silences median-bump log; timestamp is still raised to median when behind
     pos_entry pe;
     std::list<transaction> explicit_txs;
     fill_block_template_func_t *pcustom_fill_block_template_func;
