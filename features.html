@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Protocol · Privacy Data Coin</title>
+  <meta name="description" content="Stealth addresses, ring signatures, Bulletproofs+, confidential assets, Zarcanum staking, and RandomARQ on Privacy Data Coin.">
+  <link rel="canonical" href="https://privacydatacoin.com/features.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,520&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;520;640&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="wrap nav">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#10241d"/><circle cx="32" cy="32" r="20" fill="none" stroke="#c6f5d4" stroke-width="2.4"/><path d="M22 33.5h20M32 18.5v10.2" fill="none" stroke="#e4c27a" stroke-width="2.4" stroke-linecap="round"/><path d="M24 40.5h16" fill="none" stroke="#c6f5d4" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2.5 3.2"/></svg>
+        PDC
+      </a>
+      <button class="menu-btn" type="button" data-menu aria-label="Menu">Menu</button>
+      <nav class="nav-links">
+        <a href="features.html" aria-current="page" data-i18n="nav.features">Protocol</a>
+        <a href="network.html" data-i18n="nav.network">Network</a>
+        <a href="download.html" data-i18n="nav.download">Download</a>
+        <a href="https://github.com/arqtras/pdc" data-i18n="nav.source">Source</a>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="pl">PL</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="wrap page-hero">
+      <p class="kicker" data-i18n="feat.kicker">Protocol</p>
+      <h1 data-i18n="feat.title">Mechanisms written into the PDC core.</h1>
+      <p class="lede" data-i18n="feat.lede">The names below are the names in the code. The text says what each one hides or enables on this network.</p>
+    </div>
+    <section class="wrap">
+      <div class="grid-2">
+        <article class="card"><span class="index">01</span><h3 data-i18n="feat.s1.t">Stealth addresses</h3><p data-i18n="feat.s1.d">An output pays a one-time address. The published wallet address does not appear on the chain as the receiver of the transfer.</p></article>
+        <article class="card"><span class="index">02</span><h3 data-i18n="feat.s2.t">d/v-CLSAG ring signatures</h3><p data-i18n="feat.s2.d">An input is signed together with decoys from the chain using d/v-CLSAG. The default set has 10 members. From hard fork 4 the mandatory set has 15.</p></article>
+        <article class="card"><span class="index">03</span><h3 data-i18n="feat.s3.t">Commitments and Bulletproofs+</h3><p data-i18n="feat.s3.d">The amount stays in a Pedersen commitment. Zero-knowledge proofs, Bulletproofs+ among them, show that the transaction is valid without printing the number.</p></article>
+        <article class="card"><span class="index">04</span><h3 data-i18n="feat.s4.t">Confidential assets</h3><p data-i18n="feat.s4.d">The asset id on a wallet transfer is blinded. An observer cannot tell PDC from a token issued on the same chain. The wallet whitelist points at api.privacydatacoin.com.</p></article>
+        <article class="card"><span class="index">05</span><h3 data-i18n="feat.s5.t">Zarcanum</h3><p data-i18n="feat.s5.d">Hard fork 4 in the source is named Zarcanum and activates after height 100. It is a hidden-amount proof of stake: odds follow the stake, and the balance stays in a commitment.</p></article>
+        <article class="card"><span class="index">06</span><h3 data-i18n="feat.s6.t">RandomARQ and PoS together</h3><p data-i18n="feat.s6.d">Proof of work is RandomARQ. The PoW target and the PoS target are 120 seconds each. Together they set a 60-second block target. A run of PoS blocks is capped at 21 in a row.</p></article>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap site-footer">
+    <span data-i18n="footer.tag">Privacy Data Coin. Parameters taken from the pdc source tree.</span>
+    <span><a href="https://github.com/arqtras/pdc">github.com/arqtras/pdc</a></span>
+  </footer>
+  <script src="js/i18n.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
