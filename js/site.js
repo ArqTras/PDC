@@ -61,7 +61,21 @@
     }
     const menu = event.target.closest("[data-menu]");
     if (menu) {
-      document.querySelector(".nav-links").classList.toggle("open");
+      const side = document.querySelector(".sidebar");
+      const open = !side.classList.contains("open");
+      side.classList.toggle("open", open);
+      const backdrop = document.querySelector("[data-backdrop]");
+      if (backdrop) backdrop.hidden = !open;
+      menu.setAttribute("aria-expanded", open ? "true" : "false");
+      return;
+    }
+    if (event.target.closest("[data-backdrop], .side-nav a")) {
+      const side = document.querySelector(".sidebar");
+      if (side) side.classList.remove("open");
+      const backdrop = document.querySelector("[data-backdrop]");
+      if (backdrop) backdrop.hidden = true;
+      const btn = document.querySelector("[data-menu]");
+      if (btn) btn.setAttribute("aria-expanded", "false");
     }
   });
 
