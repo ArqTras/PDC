@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img">
+  <rect width="640" height="280" rx="16" fill="#07091a"/>
+  <g font-family="IBM Plex Mono, monospace" font-size="12">
+    <rect x="28" y="96" width="150" height="72" rx="12" fill="#10132b" stroke="#e21e80" stroke-width="2"/>
+    <text x="103" y="128" fill="#fff" text-anchor="middle">public Px</text>
+    <text x="103" y="148" fill="#b7bdd6" text-anchor="middle">not on chain</text>
+    <path d="M190 132 H250" stroke="#39ff88" stroke-width="2" stroke-dasharray="4 4"/>
+    <g fill="#10132b" stroke="#39ff88" stroke-width="2">
+      <rect x="270" y="36" width="120" height="52" rx="10"/>
+      <rect x="270" y="114" width="120" height="52" rx="10" stroke="#3bc7ff"/>
+      <rect x="270" y="192" width="120" height="52" rx="10"/>
+    </g>
+    <text x="330" y="68" fill="#39ff88" text-anchor="middle">out A</text>
+    <text x="330" y="146" fill="#fff" text-anchor="middle">out B</text>
+    <text x="330" y="224" fill="#39ff88" text-anchor="middle">out C</text>
+    <path d="M400 140 H470" stroke="#3bc7ff" stroke-width="2"/>
+    <rect x="470" y="100" width="140" height="80" rx="12" fill="#10132b" stroke="#3bc7ff" stroke-width="2"/>
+    <text x="540" y="136" fill="#fff" text-anchor="middle">one-time</text>
+    <text x="540" y="156" fill="#3bc7ff" text-anchor="middle">address</text>
+  </g>
+</svg>
