@@ -14,9 +14,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=20260926b">
+  <link rel="stylesheet" href="css/site.css?v=20260926c">
 </head>
 <body>
+  <canvas class="rain" aria-hidden="true"></canvas>
   <a class="skip" href="#main">Skip to content</a>
   <button class="menu-btn" type="button" data-menu aria-controls="sidebar" aria-expanded="false">Menu</button>
   <div class="backdrop" data-backdrop hidden></div>
@@ -68,6 +69,27 @@
       <div class="fact"><strong>60s</strong><span class="label" data-i18n="fact.time">Block target</span><span class="hint" data-i18n="fact.timeNote">Hybrid PoW and PoS, 120 seconds each.</span></div>
       <div class="fact"><strong>RandomARQ</strong><span class="label" data-i18n="fact.pow">Proof of work</span><span class="hint" data-i18n="fact.powNote">Epoch 2,048. Blob of 43 bytes. XMRig rx/arq.</span></div>
     </div>
+
+    <section class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker" data-i18n="viz.kicker">System graphic</p>
+          <h2 data-i18n="viz.title">A PDC transfer, drawn as a network.</h2>
+        </div>
+      </div>
+      <figure class="frame">
+        <img src="graphics/neural.svg" alt="Network diagram of a PDC wallet transfer">
+        <figcaption data-i18n="viz.cap">Wallet, stealth output, ring signature, range proof, blinded asset and Zarcanum stake. The drawing is the protocol.</figcaption>
+      </figure>
+      <div class="grid-2" style="margin-top:0.9rem">
+        <figure class="shot"><img src="graphics/stealth.svg" alt="Stealth address diagram"><figcaption data-i18n="viz1">The published Px address stays off the chain. The output is a one-time address.</figcaption></figure>
+        <figure class="shot"><img src="graphics/ring.svg" alt="Ring signature diagram"><figcaption data-i18n="viz2">d/v-CLSAG hides the real input among decoys: 10 by default, 15 after hard fork 4.</figcaption></figure>
+        <figure class="shot"><img src="graphics/commitment.svg" alt="Commitment diagram"><figcaption data-i18n="viz3">The amount enters a commitment. Bulletproofs+ proves the transaction without printing the number.</figcaption></figure>
+        <figure class="shot"><img src="graphics/assets.svg" alt="Confidential asset diagram"><figcaption data-i18n="viz4">PDC and a user token look the same after the asset id is blinded.</figcaption></figure>
+        <figure class="shot"><img src="graphics/zarcanum.svg" alt="Zarcanum stake diagram"><figcaption data-i18n="viz5">Zarcanum keeps the stake sealed. It activates after block 100. A coinstake ages 10 blocks.</figcaption></figure>
+        <figure class="shot"><img src="graphics/hybrid.svg" alt="Hybrid consensus diagram"><figcaption data-i18n="viz6">RandomARQ and proof of stake each target 120 seconds. Together the chain targets a block every 60 seconds.</figcaption></figure>
+      </div>
+    </section>
 
     <section class="wrap">
       <div class="section-head">
@@ -226,7 +248,8 @@
     <span data-i18n="footer.tag">Privacy Data Coin. Parameters taken from the pdc source tree.</span>
     <span><a href="https://github.com/arqtras/pdc">github.com/arqtras/pdc</a> · <a href="https://github.com/PrivacyDataCoin-Project">PrivacyDataCoin-Project</a></span>
   </footer>
-  <script src="js/i18n.js?v=20260926b"></script>
-  <script src="js/site.js?v=20260926b"></script>
+  <script src="js/rain.js?v=20260926c"></script>
+  <script src="js/i18n.js?v=20260926c"></script>
+  <script src="js/site.js?v=20260926c"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img">
+  <rect width="640" height="280" rx="16" fill="#07091a"/>
+  <g font-family="IBM Plex Mono, monospace" text-anchor="middle">
+    <circle cx="180" cy="140" r="78" fill="none" stroke="#39ff88" stroke-width="2" stroke-dasharray="6 6"/>
+    <circle cx="180" cy="140" r="48" fill="#10132b" stroke="#3bc7ff" stroke-width="2"/>
+    <text x="180" y="136" fill="#fff" font-size="13">stake</text>
+    <text x="180" y="156" fill="#39ff88" font-size="12">sealed</text>
+    <path d="M270 140 H360" stroke="#3bc7ff" stroke-width="2"/>
+    <rect x="360" y="78" width="230" height="124" rx="14" fill="#10132b" stroke="#e21e80" stroke-width="2"/>
+    <text x="475" y="124" fill="#fff" font-size="14">Zarcanum</text>
+    <text x="475" y="148" fill="#39ff88" font-size="12">after block 100</text>
+    <text x="475" y="170" fill="#3bc7ff" font-size="12">age 10 blocks</text>
+  </g>
+</svg>

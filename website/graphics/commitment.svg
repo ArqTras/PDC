@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img">
+  <rect width="640" height="280" rx="16" fill="#07091a"/>
+  <g font-family="IBM Plex Mono, monospace" text-anchor="middle">
+    <rect x="36" y="96" width="140" height="80" rx="12" fill="#10132b" stroke="#e21e80" stroke-width="2"/>
+    <text x="106" y="132" fill="#fff" font-size="18">1,250</text>
+    <text x="106" y="154" fill="#b7bdd6" font-size="12">amount</text>
+    <path d="M186 136 H250" stroke="#39ff88" stroke-width="2"/>
+    <rect x="250" y="70" width="160" height="140" rx="18" fill="#10132b" stroke="#39ff88" stroke-width="2"/>
+    <text x="330" y="128" fill="#39ff88" font-size="14">commit</text>
+    <text x="330" y="152" fill="#fff" font-size="13">Bulletproofs+</text>
+    <path d="M420 136 H480" stroke="#3bc7ff" stroke-width="2"/>
+    <rect x="480" y="96" width="128" height="80" rx="12" fill="#10132b" stroke="#3bc7ff" stroke-width="2"/>
+    <text x="544" y="132" fill="#fff" font-size="14">valid</text>
+    <text x="544" y="154" fill="#3bc7ff" font-size="12">no number</text>
+  </g>
+</svg>
