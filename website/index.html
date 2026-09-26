@@ -13,30 +13,30 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,520&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;520;640&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="skip" href="#main">Skip to content</a>
-    <div class="wrap nav">
-      <a class="brand" href="index.html">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#10241d"/><circle cx="32" cy="32" r="20" fill="none" stroke="#c6f5d4" stroke-width="2.4"/><path d="M22 33.5h20M32 18.5v10.2" fill="none" stroke="#e4c27a" stroke-width="2.4" stroke-linecap="round"/><path d="M24 40.5h16" fill="none" stroke="#c6f5d4" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2.5 3.2"/></svg>
-        PDC
-      </a>
-      <button class="menu-btn" type="button" data-menu aria-label="Menu">Menu</button>
-      <nav class="nav-links">
+  <a class="skip" href="#main">Skip to content</a>
+  <button class="menu-btn" type="button" data-menu aria-controls="sidebar" aria-expanded="false">Menu</button>
+  <div class="backdrop" data-backdrop hidden></div>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#07091a"/><circle cx="32" cy="32" r="20" fill="none" stroke="#3bc7ff" stroke-width="2.6"/><path d="M22 34h20" fill="none" stroke="#e21e80" stroke-width="2.6" stroke-linecap="round"/><path d="M32 16v12" fill="none" stroke="#1e30f3" stroke-width="2.6" stroke-linecap="round"/></svg>
+      <span><strong>PDC</strong><small>Privacy Data Coin</small></span>
+    </a>
+    <nav class="side-nav" aria-label="Sections">
         <a href="features.html" data-i18n="nav.features">Protocol</a>
         <a href="network.html" data-i18n="nav.network">Network</a>
         <a href="download.html" data-i18n="nav.download">Download</a>
-        <a href="https://github.com/arqtras/pdc" data-i18n="nav.source">Source</a>
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" data-lang="en">EN</button>
-          <button type="button" data-lang="pl">PL</button>
-        </div>
-      </nav>
+        <a href="https://github.com/arqtras/pdc" target="_blank" rel="noreferrer" data-i18n="nav.source">Source</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="pl">PL</button>
     </div>
-  </header>
+  </aside>
+
   <main id="main">
     <div class="wrap hero">
       <div>
@@ -68,6 +68,33 @@
       <div class="fact"><strong>60s</strong><span class="label" data-i18n="fact.time">Block target</span><span class="hint" data-i18n="fact.timeNote">Hybrid PoW and PoS, 120 seconds each.</span></div>
       <div class="fact"><strong>RandomARQ</strong><span class="label" data-i18n="fact.pow">Proof of work</span><span class="hint" data-i18n="fact.powNote">Epoch 2,048. Blob of 43 bytes. XMRig rx/arq.</span></div>
     </div>
+
+    <section class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker" data-i18n="id.kicker">Project file</p>
+          <h2 data-i18n="id.title">The PDC record.</h2>
+        </div>
+        <p data-i18n="id.note">These values come from the pdc source and the v2.0.0 release. The full table is on the Network page.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td data-i18n="id.k.name">Name</td><td data-i18n="id.v.name">Privacy Data Coin</td></tr>
+            <tr><td data-i18n="net.k.ticker">Ticker</td><td><code>PDC</code></td></tr>
+            <tr><td data-i18n="id.k.release">Release</td><td data-i18n="id.v.release">v2.0.0, 17 September 2026. Not compatible with v1.0.0.7.</td></tr>
+            <tr><td data-i18n="id.k.consensus">Consensus</td><td data-i18n="id.v.consensus">RandomARQ proof of work and Zarcanum proof of stake</td></tr>
+            <tr><td data-i18n="net.k.reward">Block reward</td><td data-i18n="net.v.reward">1 PDC, flat at every height</td></tr>
+            <tr><td data-i18n="net.k.target">Block target</td><td data-i18n="net.v.target">60 seconds</td></tr>
+            <tr><td>Premine</td><td>0</td></tr>
+            <tr><td>P2P / RPC / stratum</td><td>19121 / 19211 / 19777</td></tr>
+            <tr><td>Genesis</td><td><code>df35cba557c857756f20612ce3c9d2aa315d0ae8fc2aaffe6c5c59d37e00b10a</code></td></tr>
+            <tr><td data-i18n="id.k.source">Source</td><td><a href="https://github.com/arqtras/pdc">github.com/arqtras/pdc</a></td></tr>
+            <tr><td data-i18n="id.k.domain">Domain</td><td><a href="https://privacydatacoin.com/">privacydatacoin.com</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <section class="wrap">
       <div class="section-head">
