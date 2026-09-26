@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/site.css?v=20260926b">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -41,8 +41,8 @@
     <div class="wrap hero">
       <div>
         <p class="kicker" data-i18n="home.kicker">Privacy Data Coin · mainnet v2.0.0</p>
-        <h1 data-i18n="home.title" data-i18n-html="1">A ledger that keeps <em>the story</em> to itself.</h1>
-        <p class="lede" data-i18n="home.lede">PDC is a confidential blockchain. Wallet transfers hide the sender, the receiver, the amount, and the asset type. Mining and staking secure the same chain.</p>
+        <h1 data-i18n="home.title" data-i18n-html="1">Private <em>by default</em>.</h1>
+        <p class="lede" data-i18n="home.lede">On PDC, a wallet transfer hides the sender, the receiver, the amount, and the asset type. Staking, aliases, and confidential assets use that same path. Privacy is how the protocol works, not a switch in the wallet.</p>
         <div class="actions">
           <a class="btn primary" href="download.html" data-i18n="home.cta">Download the wallet</a>
           <a class="btn" href="network.html" data-i18n="home.secondary">See the parameters</a>
@@ -72,35 +72,18 @@
     <section class="wrap">
       <div class="section-head">
         <div>
-          <p class="kicker" data-i18n="id.kicker">Project file</p>
-          <h2 data-i18n="id.title">The PDC record.</h2>
+          <p class="kicker" data-i18n="mission.kicker">Mission</p>
+          <h2 data-i18n="mission.title">Value that does not file a report.</h2>
         </div>
-        <p data-i18n="id.note">These values come from the pdc source and the v2.0.0 release. The full table is on the Network page.</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <tbody>
-            <tr><td data-i18n="id.k.name">Name</td><td data-i18n="id.v.name">Privacy Data Coin</td></tr>
-            <tr><td data-i18n="net.k.ticker">Ticker</td><td><code>PDC</code></td></tr>
-            <tr><td data-i18n="id.k.release">Release</td><td data-i18n="id.v.release">v2.0.0, 17 September 2026. Not compatible with v1.0.0.7.</td></tr>
-            <tr><td data-i18n="id.k.consensus">Consensus</td><td data-i18n="id.v.consensus">RandomARQ proof of work and Zarcanum proof of stake</td></tr>
-            <tr><td data-i18n="net.k.reward">Block reward</td><td data-i18n="net.v.reward">1 PDC, flat at every height</td></tr>
-            <tr><td data-i18n="net.k.target">Block target</td><td data-i18n="net.v.target">60 seconds</td></tr>
-            <tr><td>Premine</td><td>0</td></tr>
-            <tr><td>P2P / RPC / stratum</td><td>19121 / 19211 / 19777</td></tr>
-            <tr><td>Genesis</td><td><code>df35cba557c857756f20612ce3c9d2aa315d0ae8fc2aaffe6c5c59d37e00b10a</code></td></tr>
-            <tr><td data-i18n="id.k.source">Source</td><td><a href="https://github.com/arqtras/pdc">github.com/arqtras/pdc</a></td></tr>
-            <tr><td data-i18n="id.k.domain">Domain</td><td><a href="https://privacydatacoin.com/">privacydatacoin.com</a></td></tr>
-          </tbody>
-        </table>
+        <p data-i18n="mission.body">PDC is for sending coins, issuing a token, registering an alias, and staking without publishing a balance. There is no premine. Blocks are mined with RandomARQ and staked with Zarcanum. The desktop wallet, the daemon, and simplewallet ship in release v2.0.0.</p>
       </div>
     </section>
 
     <section class="wrap">
       <div class="section-head">
         <div>
-          <p class="kicker" data-i18n="stack.kicker">Five seals</p>
-          <h2 data-i18n="stack.title">Privacy is the path, not a switch.</h2>
+          <p class="kicker" data-i18n="stack.kicker">Privacy stack</p>
+          <h2 data-i18n="stack.title">Five layers. None of them is optional.</h2>
         </div>
         <p data-i18n="stack.note">Pick a layer. The wallet slip shows what that layer removes from public view.</p>
       </div>
@@ -117,17 +100,17 @@
     <section class="wrap">
       <div class="section-head">
         <div>
-          <p class="kicker" data-i18n="why.kicker">What the chain is for</p>
-          <h2 data-i18n="why.title">Private payments, and the tools around them.</h2>
+          <p class="kicker" data-i18n="why.kicker">Why PDC</p>
+          <h2 data-i18n="why.title">A private payment, and the tools around it.</h2>
         </div>
       </div>
       <div class="grid-3">
-        <article class="card"><span class="index">01</span><h3 data-i18n="card1.t">Confidential assets</h3><p data-i18n="card1.d">Anyone can issue a token on PDC. Transfers blind the asset id, so a native coin and a user token look alike on the chain.</p></article>
-        <article class="card"><span class="index">02</span><h3 data-i18n="card2.t">Aliases</h3><p data-i18n="card2.d">A short name can stand in for an address. Registration fees are burned: the reward keys in the source are zero.</p></article>
-        <article class="card"><span class="index">03</span><h3 data-i18n="card3.t">Auditable wallets</h3><p data-i18n="card3.d">Default addresses start with Px. Auditable ones start with aPx, for the cases where a party must be able to prove a balance.</p></article>
-        <article class="card"><span class="index">04</span><h3 data-i18n="card4.t">Escrow</h3><p data-i18n="card4.d">The core carries an escrow service: propose, release, cancel, or burn. Marketplace offers live beside it.</p></article>
-        <article class="card"><span class="index">05</span><h3 data-i18n="card5.t">Stake from the wallet</h3><p data-i18n="card5.d">Proof of stake starts at height zero. A coinstake must age 10 blocks. Stake size stays inside a commitment under Zarcanum.</p></article>
-        <article class="card"><span class="index">06</span><h3 data-i18n="card6.t">Integrated addresses</h3><p data-i18n="card6.d">An address and a payment id can travel as one string beginning with iP. Auditable integrated addresses begin with aiPX.</p></article>
+        <article class="card"><span class="index">01</span><h3 data-i18n="card1.t">Private by default</h3><p data-i18n="card1.d">Sender, receiver, amount, and asset type stay hidden on a wallet transfer. There is no privacy mode to turn on.</p></article>
+        <article class="card"><span class="index">02</span><h3 data-i18n="card2.t">Two locks on the chain</h3><p data-i18n="card2.d">RandomARQ mining and Zarcanum staking secure PDC together. A rewrite has to beat both, not only one.</p></article>
+        <article class="card"><span class="index">03</span><h3 data-i18n="card3.t">Open to run</h3><p data-i18n="card3.d">Anyone can mine, stake, or run a full node. There is no premine and no approval. A coinstake only has to age 10 blocks.</p></article>
+        <article class="card"><span class="index">04</span><h3 data-i18n="card4.t">Nothing to filter on</h3><p data-i18n="card4.d">A wallet transfer does not name the parties or the amount, so there is no public field to censor by.</p></article>
+        <article class="card"><span class="index">05</span><h3 data-i18n="card5.t">Fungible</h3><p data-i18n="card5.d">Coins do not carry a visible history. One PDC is not marked by where it has been.</p></article>
+        <article class="card"><span class="index">06</span><h3 data-i18n="card6.t">In the core</h3><p data-i18n="card6.d">Confidential assets, aliases, escrow, and integrated addresses are part of this chain. A normal address starts with Px.</p></article>
       </div>
     </section>
 
@@ -155,6 +138,51 @@
             <li data-i18n="compare.right.3">Using the wallet does not mark you as the exception.</li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker" data-i18n="eco.kicker">On this network</p>
+          <h2 data-i18n="eco.title">What PDC ships.</h2>
+        </div>
+        <p data-i18n="eco.note">These pieces are in the arqtras/pdc tree and in release v2.0.0.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card"><span class="index">GUI</span><h3 data-i18n="eco1.t">Desktop wallet</h3><p data-i18n="eco1.d">The Qt GUI from v2.0.0 sends, receives, and talks to the PDC core, including aliases and custom assets.</p></article>
+        <article class="card"><span class="index">NODE</span><h3 data-i18n="eco2.t">Node</h3><p data-i18n="eco2.d">The daemon speaks P2P on port 19121 and RPC on 19211. The seed in the source is 169.58.142.131.</p></article>
+        <article class="card"><span class="index">CLI</span><h3 data-i18n="eco3.t">simplewallet</h3><p data-i18n="eco3.d">The command-line wallet is in the same release archives as the daemon.</p></article>
+        <article class="card"><span class="index">ASSET</span><h3 data-i18n="eco4.t">Confidential assets</h3><p data-i18n="eco4.d">A token issued here is blinded on transfer. The wallet whitelist is api.privacydatacoin.com.</p></article>
+        <article class="card"><span class="index">ALIAS</span><h3 data-i18n="eco5.t">Aliases</h3><p data-i18n="eco5.d">A short name can stand in for an address. The registration fee is burned.</p></article>
+        <article class="card"><span class="index">ESCROW</span><h3 data-i18n="eco6.t">Escrow</h3><p data-i18n="eco6.d">The core can propose, release, cancel, or burn an escrow, and it keeps marketplace offers.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker" data-i18n="id.kicker">Project file</p>
+          <h2 data-i18n="id.title">The PDC record.</h2>
+        </div>
+        <p data-i18n="id.note">These values come from the pdc source and the v2.0.0 release. The full table is on the Network page.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td data-i18n="id.k.name">Name</td><td data-i18n="id.v.name">Privacy Data Coin</td></tr>
+            <tr><td data-i18n="net.k.ticker">Ticker</td><td><code>PDC</code></td></tr>
+            <tr><td data-i18n="id.k.release">Release</td><td data-i18n="id.v.release">v2.0.0, 17 September 2026. Not compatible with v1.0.0.7.</td></tr>
+            <tr><td data-i18n="id.k.consensus">Consensus</td><td data-i18n="id.v.consensus">RandomARQ proof of work and Zarcanum proof of stake</td></tr>
+            <tr><td data-i18n="net.k.reward">Block reward</td><td data-i18n="net.v.reward">1 PDC, flat at every height</td></tr>
+            <tr><td data-i18n="net.k.target">Block target</td><td data-i18n="net.v.target">60 seconds</td></tr>
+            <tr><td>Premine</td><td>0</td></tr>
+            <tr><td>P2P / RPC / stratum</td><td>19121 / 19211 / 19777</td></tr>
+            <tr><td>Genesis</td><td><code>df35cba557c857756f20612ce3c9d2aa315d0ae8fc2aaffe6c5c59d37e00b10a</code></td></tr>
+            <tr><td data-i18n="id.k.source">Source</td><td><a href="https://github.com/arqtras/pdc">github.com/arqtras/pdc</a></td></tr>
+            <tr><td data-i18n="id.k.domain">Domain</td><td><a href="https://privacydatacoin.com/">privacydatacoin.com</a></td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -198,7 +226,7 @@
     <span data-i18n="footer.tag">Privacy Data Coin. Parameters taken from the pdc source tree.</span>
     <span><a href="https://github.com/arqtras/pdc">github.com/arqtras/pdc</a> · <a href="https://github.com/PrivacyDataCoin-Project">PrivacyDataCoin-Project</a></span>
   </footer>
-  <script src="js/i18n.js"></script>
-  <script src="js/site.js"></script>
+  <script src="js/i18n.js?v=20260926b"></script>
+  <script src="js/site.js?v=20260926b"></script>
 </body>
 </html>
