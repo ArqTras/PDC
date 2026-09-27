@@ -354,7 +354,18 @@ bool wallets_manager::init(view::i_view* pview_handler)
     else
 #endif
     {
+#if defined(__APPLE__)
+      // codesign treats Contents/MacOS as code-only; ship UI under Resources.
+      const std::string module_folder = string_tools::get_current_module_folder();
+      const std::string resources_html = module_folder + "/../Resources/html";
+      boost::system::error_code ec;
+      if (boost::filesystem::exists(resources_html, ec))
+        path_to_html = resources_html;
+      else
+        path_to_html = module_folder + "/html"; // legacy bundle layout fallback
+#else
       path_to_html = string_tools::get_current_module_folder() + "/html";
+#endif
     }
   }
   else

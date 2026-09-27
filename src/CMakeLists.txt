@@ -227,8 +227,9 @@ if(BUILD_GUI)
   set(HTML_DIR ${CMAKE_CURRENT_SOURCE_DIR}/gui/qt-daemon/layout/html)
   set_target_properties(Pdc PROPERTIES VS_DEBUGGER_COMMAND_ARGUMENTS "--html-path=${HTML_DIR}")
   if(APPLE)
+    # Ship HTML under Resources — Contents/MacOS is code-only for codesign.
     add_custom_command(TARGET Pdc POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy_directory ${HTML_DIR} "$<TARGET_BUNDLE_DIR:Pdc>/Contents/MacOS/html")
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${HTML_DIR} "$<TARGET_BUNDLE_DIR:Pdc>/Contents/Resources/html")
   endif()
 
   set(CMAKE_AUTOMOC OFF)

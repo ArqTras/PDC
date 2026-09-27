@@ -343,13 +343,15 @@ jobs:
           fi
           test -x "$MACDEPLOYQT"
           # From build/src, repo root is ../.. (not ../../..). Skip ad-hoc codesign
-          # so unsigned html/assets do not break the bundle on CI runners.
+          # during macdeployqt; we sign inside-out afterwards.
           "$MACDEPLOYQT" Pdc.app -always-overwrite -no-codesign || true
 
-          # Ship the Angular/HTML UI and app icon.
-          rsync -a ../../src/gui/qt-daemon/layout/html Pdc.app/Contents/MacOS/ \
-            --exclude less --exclude package.json --exclude gulpfile.js
+          # Ship HTML under Resources (MacOS is code-only for codesign) + app icon.
           mkdir -p Pdc.app/Contents/Resources
+          rsync -a ../../src/gui/qt-daemon/layout/html Pdc.app/Contents/Resources/ \
+            --exclude less --exclude package.json --exclude gulpfile.js
+          # Drop any stale CMake POST_BUILD copy under MacOS so codesign stays clean.
+          rm -rf Pdc.app/Contents/MacOS/html
           cp -f ../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources/
 
           # Ad-hoc sign inside-out (never --deep with app entitlements): that
@@ -358,7 +360,8 @@ jobs:
           ../../utils/macos_adhoc_codesign.sh Pdc.app ../../utils/macos_entitlements.plist
 
           # Sanity: GUI binary + html present; helpers must not pull non-portable Boost/OpenSSL paths.
-          test -d Pdc.app/Contents/MacOS/html
+          test -d Pdc.app/Contents/Resources/html
+          test ! -e Pdc.app/Contents/MacOS/html
           for b in Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool; do
             echo "==== otool $b ===="
             otool -L "$b"

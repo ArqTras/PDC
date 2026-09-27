@@ -94,11 +94,14 @@ fi
 rm -rf Pdc.app/Contents/Frameworks/libboost*.dylib
 
 
-rsync -a ../../../src/gui/qt-daemon/layout/html Pdc.app/Contents/MacOS --exclude less --exclude package.json --exclude gulpfile.js
+mkdir -p Pdc.app/Contents/Resources
+rsync -a ../../../src/gui/qt-daemon/layout/html Pdc.app/Contents/Resources --exclude less --exclude package.json --exclude gulpfile.js
 if [ $? -ne 0 ]; then
-    echo "Failed to cp html to MacOS"
+    echo "Failed to cp html to Resources"
     exit 1
 fi
+# Drop any stale CMake POST_BUILD copy under MacOS so codesign stays clean.
+rm -rf Pdc.app/Contents/MacOS/html
 
 cp ../../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources
 if [ $? -ne 0 ]; then
