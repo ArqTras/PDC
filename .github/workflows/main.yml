@@ -342,13 +342,15 @@ jobs:
             MACDEPLOYQT="$(find "$(brew --prefix)" -name macdeployqt 2>/dev/null | head -1)"
           fi
           test -x "$MACDEPLOYQT"
-          "$MACDEPLOYQT" Pdc.app -always-overwrite
+          # From build/src, repo root is ../.. (not ../../..). Skip ad-hoc codesign
+          # so unsigned html/assets do not break the bundle on CI runners.
+          "$MACDEPLOYQT" Pdc.app -always-overwrite -no-codesign || true
 
           # Ship the Angular/HTML UI and app icon.
-          rsync -a ../../../src/gui/qt-daemon/layout/html Pdc.app/Contents/MacOS/ \
+          rsync -a ../../src/gui/qt-daemon/layout/html Pdc.app/Contents/MacOS/ \
             --exclude less --exclude package.json --exclude gulpfile.js
           mkdir -p Pdc.app/Contents/Resources
-          cp -f ../../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources/
+          cp -f ../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources/
 
           # Sanity: GUI binary + html present; helpers must not pull non-portable Boost/OpenSSL paths.
           test -d Pdc.app/Contents/MacOS/html
