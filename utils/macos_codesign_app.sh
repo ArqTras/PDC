@@ -29,12 +29,17 @@ fi
 [ -f "$ENTITLEMENTS" ] || die "entitlements not found: $ENTITLEMENTS"
 
 SIGN_IDENTITY="${SIGN_IDENTITY:--}"
-# shellcheck disable=SC2206
-SIGN_OPTIONS_ARR=( ${SIGN_OPTIONS:-} )
+SIGN_OPTIONS="${SIGN_OPTIONS:-}"
 
 codesign_it() {
-  # Intentionally unquoted SIGN_OPTIONS_ARR expansion for optional flags.
-  codesign --force "${SIGN_OPTIONS_ARR[@]}" --sign "$SIGN_IDENTITY" "$@"
+  # macOS ships Bash 3.2: empty "${arr[@]}" under `set -u` is an unbound variable.
+  # Expand optional flags only when set.
+  if [ -n "$SIGN_OPTIONS" ]; then
+    # shellcheck disable=SC2086
+    codesign --force $SIGN_OPTIONS --sign "$SIGN_IDENTITY" "$@"
+  else
+    codesign --force --sign "$SIGN_IDENTITY" "$@"
+  fi
 }
 
 note "clearing extended attributes on $APP"
