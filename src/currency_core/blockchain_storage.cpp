@@ -103,6 +103,7 @@ blockchain_storage::blockchain_storage(tx_memory_pool& tx_pool) :m_db(nullptr, m
                                                                  m_tx_pool(tx_pool),
                                                                  m_is_in_checkpoint_zone(false),
                                                                  m_is_blockchain_storing(false),
+                                                                 m_is_irreverseble_prunning_on(false),
                                                                  m_core_runtime_config(get_default_core_runtime_config()),
                                                                  //m_bei_stub(AUTO_VAL_INIT(m_bei_stub)),
                                                                  m_event_handler(&m_event_handler_stub),
@@ -492,6 +493,25 @@ bool blockchain_storage::init(const std::string& config_folder, const boost::pro
     LOG_PRINT_MAGENTA("Storage initialized with genesis", LOG_LEVEL_0);
   }
 
+  // Emergency HF7 cut-off (Zano inflation-bug response): restart from block 1200.
+  // KEEP blocks [0 .. HF7_AFTER_HEIGHT] (top height 1199); next mined block is 1200 under HF7.
+  {
+    const uint64_t hf7_after = m_core_runtime_config.hard_forks.get_height_the_hardfork_active_after(ZANO_HARDFORK_07);
+    const uint64_t truncate_to_size = hf7_after + 1; // size == top_height + 1 == 1200 when after==1199
+    if (m_db_blocks.size() > truncate_to_size)
+    {
+      LOG_PRINT_RED_L0("Emergency HF7 gateway cut-off: truncating blockchain from height "
+        << (m_db_blocks.size() - 1) << " down to " << hf7_after
+        << " so the next block is " << truncate_to_size << " under the post-fix fork");
+      m_is_irreverseble_prunning_on = true;
+      {
+        auto a = epee::misc_utils::create_scope_leave_handler([&]() { m_is_irreverseble_prunning_on = false; });
+        truncate_blockchain(truncate_to_size);
+      }
+      LOG_PRINT_GREEN("Blockchain truncated for HF7; top height is now " << (m_db_blocks.size() - 1), LOG_LEVEL_0);
+    }
+  }
+
   store_db_solo_options_values();
 
   m_services_mgr.init(config_folder, vm);
@@ -799,7 +819,7 @@ bool blockchain_storage::purge_transaction_from_blockchain(const crypto::hash& t
   r = unprocess_blockchain_tx_attachments(tx, get_current_blockchain_size(), 0/*TODO: add valid timestamp here in future if need*/);
 
   bool added_to_the_pool = false;
-  if(!is_coinbase(tx))
+  if(!m_is_irreverseble_prunning_on && !is_coinbase(tx))
   {
     currency::tx_verification_context tvc = AUTO_VAL_INIT(tvc);
     added_to_the_pool = m_tx_pool.add_tx(tx, tvc, true, true);
@@ -7399,10 +7419,20 @@ bool blockchain_storage::truncate_blockchain(uint64_t to_height)
 {
   m_db.begin_transaction();
   uint64_t inital_height = get_current_blockchain_size();
+  uint64_t blocks_to_pop = inital_height > to_height ? inital_height - to_height : 0;
+  uint64_t ticks_last_print = epee::misc_utils::get_tick_count();
   while (get_current_blockchain_size() > to_height)
   {
     transactions_map ot;
     pop_block_from_blockchain(ot);
+
+    if (blocks_to_pop && epee::misc_utils::get_tick_count() - ticks_last_print > 1000)
+    {
+      ticks_last_print = epee::misc_utils::get_tick_count();
+      uint64_t blocks_popped = inital_height - get_current_blockchain_size();
+      std::cout << "Truncating blockchain: " << blocks_popped << " of " << blocks_to_pop
+        << " blocks (" << (blocks_popped * 100) / blocks_to_pop << "%)" << std::endl;
+    }
   }
   CRITICAL_REGION_LOCAL(m_alternative_chains_lock);
   m_alternative_chains.clear();
