@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img">
+  <rect width="640" height="280" rx="16" fill="#07091a"/>
+  <g font-family="IBM Plex Mono, monospace" font-size="12">
+    <text x="28" y="48" fill="#39ff88">RandomARQ</text>
+    <text x="28" y="168" fill="#3bc7ff">Zarcanum PoS</text>
+    <g fill="#10132b" stroke="#39ff88">
+      <rect x="150" y="24" width="70" height="40" rx="8"/>
+      <rect x="236" y="24" width="70" height="40" rx="8"/>
+      <rect x="322" y="24" width="70" height="40" rx="8"/>
+    </g>
+    <g fill="#10132b" stroke="#3bc7ff">
+      <rect x="150" y="144" width="70" height="40" rx="8"/>
+      <rect x="236" y="144" width="70" height="40" rx="8"/>
+      <rect x="322" y="144" width="70" height="40" rx="8"/>
+    </g>
+    <text x="185" y="50" fill="#fff" text-anchor="middle">120s</text>
+    <text x="271" y="50" fill="#fff" text-anchor="middle">120s</text>
+    <text x="357" y="50" fill="#fff" text-anchor="middle">120s</text>
+    <text x="185" y="170" fill="#fff" text-anchor="middle">120s</text>
+    <text x="271" y="170" fill="#fff" text-anchor="middle">120s</text>
+    <text x="357" y="170" fill="#fff" text-anchor="middle">120s</text>
+    <path d="M410 44 H470 L520 120 M410 164 H470 L520 140" fill="none" stroke="#e21e80" stroke-width="2"/>
+    <rect x="500" y="96" width="112" height="72" rx="12" fill="#10132b" stroke="#39ff88" stroke-width="2"/>
+    <text x="556" y="128" fill="#fff" text-anchor="middle">block</text>
+    <text x="556" y="148" fill="#39ff88" text-anchor="middle">60s</text>
+  </g>
+</svg>
