@@ -320,7 +320,7 @@ jobs:
           make -j"$(sysctl -n hw.ncpu)"
           ccache -s
 
-       # Prepare for deploy
+       # Prepare for deploy: package Pdc.app (GUI) with helpers + html
       - name: Prepare for Deploy
         id: before_deploy
         env:
@@ -329,9 +329,30 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build/src
           ls
-          TARGETS="pdcd connectivity_tool simplewallet"
-          if [[ "${LABEL}" != "aarch64" ]]; then strip ${TARGETS}; fi
-          for b in ${TARGETS}; do
+          test -d Pdc.app
+          test -x Pdc.app/Contents/MacOS/Pdc
+
+          # Bundle CLI helpers next to the GUI binary (same as utils/build_script_mac_osx.sh).
+          cp -f pdcd simplewallet connectivity_tool Pdc.app/Contents/MacOS/
+          chmod a+x Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool
+
+          # Deploy Qt frameworks/plugins into the app bundle.
+          MACDEPLOYQT="$(brew --prefix qt)/bin/macdeployqt"
+          if [[ ! -x "$MACDEPLOYQT" ]]; then
+            MACDEPLOYQT="$(find "$(brew --prefix)" -name macdeployqt 2>/dev/null | head -1)"
+          fi
+          test -x "$MACDEPLOYQT"
+          "$MACDEPLOYQT" Pdc.app -always-overwrite
+
+          # Ship the Angular/HTML UI and app icon.
+          rsync -a ../../../src/gui/qt-daemon/layout/html Pdc.app/Contents/MacOS/ \
+            --exclude less --exclude package.json --exclude gulpfile.js
+          mkdir -p Pdc.app/Contents/Resources
+          cp -f ../../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources/
+
+          # Sanity: GUI binary + html present; helpers must not pull non-portable Boost/OpenSSL paths.
+          test -d Pdc.app/Contents/MacOS/html
+          for b in Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool; do
             echo "==== otool $b ===="
             otool -L "$b"
             if otool -L "$b" | grep -E '@rpath/libboost_|/Users/runner/|libboost_[^ ]*\.dylib|/opt/homebrew/.*/libssl|/opt/homebrew/.*/libcrypto|/usr/local/opt/openssl'; then
@@ -339,12 +360,11 @@ jobs:
               exit 1
             fi
           done
-          rm -rf Pdc-Gui-${TAG}
-          mkdir Pdc-Gui-${TAG}
-          cp ${TARGETS} Pdc-Gui-${TAG}/
-          # upload-artifact zip of bare dirs drops +x; set modes before tar and publish the archive.
-          chmod a+x Pdc-Gui-${TAG}/*
-          tar cvfz Pdc-Gui-${TAG}-${LABEL}.tar.gz Pdc-Gui-${TAG}/
+
+          rm -rf "Pdc-Gui-${TAG}"
+          mkdir "Pdc-Gui-${TAG}"
+          ditto Pdc.app "Pdc-Gui-${TAG}/Pdc.app"
+          tar cvfz "Pdc-Gui-${TAG}-${LABEL}.tar.gz" "Pdc-Gui-${TAG}/"
           if [[ "${TAG}" != "${COMMIT_SHA}" ]]; then
             cp -f "Pdc-Gui-${TAG}-${LABEL}.tar.gz" "Pdc-Gui-${COMMIT_SHA}-${LABEL}.tar.gz"
           fi
