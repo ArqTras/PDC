@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-    Entitlements for the MAIN Pdc.app executable only.
-
-    QtWebEngineProcess must NOT be signed with this file. That helper ships its
-    own entitlements inside the framework:
-      QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/Resources/QtWebEngineProcess.entitlements
-    Using `codesign --deep` with this plist overwrites those JIT entitlements
-    and leaves a blank WebEngine window. Use utils/macos_adhoc_codesign.sh
-    (inside-out signing) instead.
--->
 <plist version="1.0">
 <dict>
     <key>com.apple.security.cs.disable-executable-page-protection</key>
