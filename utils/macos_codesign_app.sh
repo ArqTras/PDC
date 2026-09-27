@@ -42,35 +42,44 @@ codesign_it() {
   fi
 }
 
+sign_webengine_helper() {
+  local helper="$1"
+  local helper_entitlements="$helper/Contents/Resources/QtWebEngineProcess.entitlements"
+  [ -f "$helper_entitlements" ] \
+    || die "found $helper but not QtWebEngineProcess.entitlements"
+  note "signing QtWebEngineProcess with its own entitlements ($helper)"
+  codesign_it --entitlements "$helper_entitlements" "$helper/Contents/MacOS/QtWebEngineProcess"
+  codesign_it --entitlements "$helper_entitlements" "$helper"
+}
+
 note "clearing extended attributes on $APP"
 xattr -cr "$APP" 2>/dev/null || true
 find "$APP" -name '.DS_Store' -type f -delete 2>/dev/null || true
 
-# 1. Qt WebEngine helper with the entitlements Qt ships for it.
 helper="$(find "$APP/Contents" -type d -name 'QtWebEngineProcess.app' -print 2>/dev/null | head -1 || true)"
-if [ -n "$helper" ]; then
-  helper_entitlements="$helper/Contents/Resources/QtWebEngineProcess.entitlements"
-  [ -f "$helper_entitlements" ] \
-    || die "found $helper but not QtWebEngineProcess.entitlements"
-  note "signing QtWebEngineProcess with its own entitlements"
-  codesign_it --entitlements "$helper_entitlements" "$helper/Contents/MacOS/QtWebEngineProcess"
-  codesign_it --entitlements "$helper_entitlements" "$helper"
-else
+if [ -z "$helper" ]; then
   echo "WARNING: No QtWebEngineProcess.app under $APP/Contents (macdeployqt missing?)" >&2
 fi
 
-# 2. Loose libraries, deepest first.
+# 1. Loose libraries, deepest first.
 while IFS= read -r item; do
   codesign_it "$item"
 done < <(find "$APP/Contents" \( -name '*.dylib' -o -name '*.so' \) -type f | sort -r)
 
-# 3. Frameworks / nested bundles, deepest first (helper already signed).
+# 2. Frameworks / nested bundles, deepest first. Skip the WebEngine helper —
+#    it must keep Qt's JIT entitlements and is re-signed after its parent
+#    framework so a later framework seal cannot leave it unsigned/stale.
 while IFS= read -r item; do
   case "$item" in
     */QtWebEngineProcess.app) continue ;;
   esac
   codesign_it "$item"
 done < <(find "$APP/Contents" -type d \( -name '*.framework' -o -name '*.bundle' -o -name '*.appex' \) | sort -r)
+
+# 3. Qt WebEngine helper LAST among nested code (own entitlements).
+if [ -n "$helper" ]; then
+  sign_webengine_helper "$helper"
+fi
 
 # 4. Auxiliary executables in Contents/MacOS (pdcd, simplewallet, …).
 main_executable="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Contents/Info.plist" 2>/dev/null || echo '')"
@@ -84,9 +93,16 @@ for item in "$APP"/Contents/MacOS/*; do
   codesign_it --entitlements "$ENTITLEMENTS" "$item"
 done
 
-# 5. Outer bundle last.
+# 5. Outer bundle last (host entitlements — never --deep).
 note "signing $APP (identity=$SIGN_IDENTITY)"
 codesign_it --entitlements "$ENTITLEMENTS" "$APP"
+
+if [ -n "$helper" ]; then
+  note "verifying QtWebEngineProcess still has JIT entitlements"
+  codesign -d --entitlements :- "$helper/Contents/MacOS/QtWebEngineProcess" 2>/dev/null \
+    | grep -q 'allow-jit' \
+    || die "QtWebEngineProcess lost allow-jit after signing"
+fi
 
 codesign --verify --verbose=2 "$APP" || true
 note "codesign complete"

@@ -357,12 +357,14 @@ bool wallets_manager::init(view::i_view* pview_handler)
 #if defined(__APPLE__)
       // codesign treats Contents/MacOS as code-only; ship UI under Resources.
       const std::string module_folder = string_tools::get_current_module_folder();
-      const std::string resources_html = module_folder + "/../Resources/html";
       boost::system::error_code ec;
-      if (boost::filesystem::exists(resources_html, ec))
-        path_to_html = resources_html;
+      boost::filesystem::path resources_html =
+        boost::filesystem::weakly_canonical(
+          boost::filesystem::path(module_folder) / ".." / "Resources" / "html", ec);
+      if (!ec && boost::filesystem::exists(resources_html, ec))
+        path_to_html = resources_html.string();
       else
-        path_to_html = module_folder + "/html"; // legacy bundle layout fallback
+        path_to_html = (boost::filesystem::path(module_folder) / "html").string();
 #else
       path_to_html = string_tools::get_current_module_folder() + "/html";
 #endif
@@ -372,6 +374,15 @@ bool wallets_manager::init(view::i_view* pview_handler)
   {
     path_to_html = command_line::get_arg(m_vm, arg_html_folder);
   }
+
+#if defined(__APPLE__)
+  {
+    boost::system::error_code ec;
+    boost::filesystem::path index_html = boost::filesystem::path(path_to_html) / "index.html";
+    LOG_PRINT_L0("GUI html path: " << path_to_html
+      << " (index.html " << (boost::filesystem::exists(index_html, ec) ? "found" : "MISSING") << ")");
+  }
+#endif
 
   if (command_line::has_arg(m_vm, arg_remote_node))
   {

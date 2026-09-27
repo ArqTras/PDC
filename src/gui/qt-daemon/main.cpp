@@ -71,7 +71,10 @@ int main(int argc, char *argv[])
 #endif
 #ifdef Q_OS_DARWIN
   qputenv("QT_MAC_WANTS_LAYER", "1");
-  qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu");
+  // GPU + sandbox frequently leave a blank QWebEngineView with ad-hoc signed
+  // Homebrew Qt6 bundles; disable both so the Angular UI can paint.
+  qputenv("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --no-sandbox");
+  qputenv("QTWEBENGINE_DISABLE_SANDBOX", "1");
 #endif
 
   QApplication app(argc, argv);
