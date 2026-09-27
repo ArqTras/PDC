@@ -352,13 +352,10 @@ jobs:
           mkdir -p Pdc.app/Contents/Resources
           cp -f ../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources/
 
-          # Ad-hoc sign the whole bundle so macOS (SIP / library validation) can
-          # load embedded Qt frameworks. Without this, dyld kills Pdc with
-          # CODESIGNING / Invalid Page when resolving dependents.
-          codesign --force --deep --sign - \
-            --entitlements ../../utils/macos_entitlements.plist \
-            Pdc.app
-          codesign --verify --verbose=2 Pdc.app || true
+          # Ad-hoc sign inside-out (never --deep with app entitlements): that
+          # would overwrite QtWebEngineProcess JIT entitlements and blank the UI.
+          chmod +x ../../utils/macos_adhoc_codesign.sh
+          ../../utils/macos_adhoc_codesign.sh Pdc.app ../../utils/macos_entitlements.plist
 
           # Sanity: GUI binary + html present; helpers must not pull non-portable Boost/OpenSSL paths.
           test -d Pdc.app/Contents/MacOS/html

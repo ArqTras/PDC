@@ -106,7 +106,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-codesign -s "Pdc" --timestamp --options runtime -f --entitlements ../../../utils/macos_entitlements.plist --deep ./Pdc.app
+# Inside-out codesign — never `codesign --deep` with app entitlements
+# (that blanks Qt WebEngine by overwriting QtWebEngineProcess JIT entitlements).
+chmod +x ../../../utils/macos_codesign_app.sh
+SIGN_IDENTITY="Pdc" SIGN_OPTIONS="--options runtime --timestamp" \
+  ../../../utils/macos_codesign_app.sh ./Pdc.app ../../../utils/macos_entitlements.plist
 if [ $? -ne 0 ]; then
     echo "Failed to sign Pdc.app"
     exit 1
