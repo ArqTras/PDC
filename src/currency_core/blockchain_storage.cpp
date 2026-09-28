@@ -6752,6 +6752,15 @@ bool blockchain_storage::handle_block_to_main_chain(const block& bl, const crypt
         << "nonce: " << bl.nonce << ENDL
         << "header_mining_hash: " << get_block_header_mining_hash(bl) << ENDL
         << "expected difficulty: " << current_diffic);
+      // Legacy check_hash() tested the opposite 64-bit word from XMRig. Chains
+      // mined before the check_hash_64 consensus switch fail here and must be
+      // wiped on every node (including the seed) — they cannot be synced.
+      if (check_hash(proof_hash, current_diffic))
+      {
+        LOG_PRINT_RED_L0("PoW hash meets LEGACY check_hash but not XMRig check_hash_64. "
+          "Peer is serving a pre-check_hash_64 chain; wipe blockchain data and resync "
+          "from a seed that was reset after the RandomARQ/XMRig consensus fix.");
+      }
       bvc.m_verification_failed = true;
       return false;
     }
