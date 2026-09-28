@@ -90,6 +90,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Fix Homebrew-style absolute Qt linkage on QtWebEngineProcess when present.
+if [ -x ../../../utils/macos_fix_qt_webengine_rpaths.sh ]; then
+  chmod +x ../../../utils/macos_fix_qt_webengine_rpaths.sh
+  ../../../utils/macos_fix_qt_webengine_rpaths.sh ./Pdc.app || true
+fi
 
 rm -rf Pdc.app/Contents/Frameworks/libboost*.dylib
 

@@ -346,6 +346,11 @@ jobs:
           # during macdeployqt; we sign inside-out afterwards.
           "$MACDEPLOYQT" Pdc.app -always-overwrite -no-codesign || true
 
+          # Homebrew Qt leaves QtWebEngineProcess on absolute keg paths; rewrite
+          # them to @rpath before codesign or the UI stays blank on user Macs.
+          chmod +x ../../utils/macos_fix_qt_webengine_rpaths.sh
+          ../../utils/macos_fix_qt_webengine_rpaths.sh Pdc.app
+
           # Ship HTML under Resources (MacOS is code-only for codesign) + app icon.
           mkdir -p Pdc.app/Contents/Resources
           rsync -a ../../src/gui/qt-daemon/layout/html Pdc.app/Contents/Resources/ \
@@ -359,14 +364,16 @@ jobs:
           chmod +x ../../utils/macos_adhoc_codesign.sh
           ../../utils/macos_adhoc_codesign.sh Pdc.app ../../utils/macos_entitlements.plist
 
-          # Sanity: GUI binary + html present; helpers must not pull non-portable Boost/OpenSSL paths.
+          # Sanity: GUI binary + html present; helpers must not pull non-portable paths.
           test -d Pdc.app/Contents/Resources/html
           test ! -e Pdc.app/Contents/MacOS/html
-          for b in Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool; do
+          HELPER="$(find Pdc.app/Contents -type f -path '*/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess' | head -1)"
+          test -n "$HELPER"
+          for b in Pdc.app/Contents/MacOS/Pdc Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool "$HELPER"; do
             echo "==== otool $b ===="
             otool -L "$b"
-            if otool -L "$b" | grep -E '@rpath/libboost_|/Users/runner/|libboost_[^ ]*\.dylib|/opt/homebrew/.*/libssl|/opt/homebrew/.*/libcrypto|/usr/local/opt/openssl'; then
-              echo "ERROR: $b still depends on a non-portable Boost/OpenSSL path"
+            if otool -L "$b" | grep -E '@rpath/libboost_|/Users/runner/|libboost_[^ ]*\.dylib|/opt/homebrew/|/usr/local/opt/'; then
+              echo "ERROR: $b still depends on a non-portable Homebrew/Boost/OpenSSL path"
               exit 1
             fi
           done
