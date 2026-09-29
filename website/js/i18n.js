@@ -4,6 +4,7 @@ window.PDC_I18N = {
     "nav.network": "Network",
     "nav.download": "Download",
     "nav.source": "Source",
+    "nav.docs": "Docs",
     "footer.tag": "Privacy Data Coin. Parameters taken from the pdc source tree.",
     "promo.title": "Privacy Data Coin promo",
     "home.kicker": "Privacy Data Coin · mainnet v2.0.0",
