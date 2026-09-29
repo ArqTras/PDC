@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build from source · PDC Docs</title>
+  <meta name="description" content="Clone, dependencies, and the daemon build.">
+  <link rel="icon" href="../../favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/docs.css">
+</head>
+<body>
+  <button class="menu" type="button" data-menu aria-expanded="false">Menu</button>
+  <div class="backdrop" data-backdrop hidden></div>
+  <aside class="sidebar">
+    <a class="brand" href="../../index.html">
+      <img src="../../graphics/pdc-logo.png" alt="PDC">
+      <small>Documentation</small>
+    </a>
+    <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
+    <div class="nav-group"><h2>Learn</h2><a href="../../learn/what-is-pdc.html">What PDC is</a><a href="../../learn/how-it-works.html">How PDC works</a><a href="../../learn/faq.html">FAQ</a></div>
+<div class="nav-group"><h2>Use</h2><a href="../../use/getting-started.html">Getting started</a><a href="../../use/wallets.html">Wallets</a><a href="../../use/security.html">Security and privacy</a><a href="../../use/troubleshooting.html">Troubleshooting</a></div>
+<div class="nav-group"><h2>Build</h2><a href="../../build/from-source.html" aria-current="page">Build from source</a><a href="../../build/rpc.html">Node RPC</a><a href="../../build/assets.html">Confidential assets</a><a href="../../build/aliases.html">Aliases</a><a href="../../build/services.html">Escrow, swaps, and offers</a></div>
+<div class="nav-group"><h2>Mine</h2><a href="../../mine/mining.html">Mining</a></div>
+<div class="nav-group"><h2>Stake</h2><a href="../../stake/staking.html">Staking</a><a href="../../stake/proof-of-stake.html">Proof of stake</a></div>
+<div class="nav-group"><h2>Code</h2><a href="../../code/parameters.html">Network parameters</a><a href="../../code/source-map.html">Source map</a></div>
+  </aside>
+  <div class="layout">
+    <main>
+      <article>
+        <p class="kicker">Build</p>
+        <h1>Build from source</h1>
+        <p>The repository is <a href="https://github.com/ArqTras/pdc">github.com/ArqTras/pdc</a>, branch <code>pdc</code>. Clone it with submodules. A clone without <code>--recursive</code> misses the bundled libraries and will not configure.</p>
+<pre><code class="language-text">git clone --recursive https://github.com/ArqTras/pdc.git -b pdc
+</code></pre>
+<p>The README in that repository is the long-form build guide. This page is the map. If a checksum or an installer URL in the README and a newer release note disagree, follow the file you are actually building.</p>
+<h2 id="what-the-build-produces">What the build produces</h2>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Binary</th>
+<th>You need it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>daemon</code></td>
+<td><code>daemon</code></td>
+<td>A full node</td>
+</tr>
+<tr>
+<td><code>simplewallet</code></td>
+<td><code>simplewallet</code></td>
+<td>Command-line wallet</td>
+</tr>
+<tr>
+<td><code>Pdc</code></td>
+<td>desktop wallet</td>
+<td>Everyday use and staking with a GUI</td>
+</tr>
+<tr>
+<td><code>connectivity_tool</code></td>
+<td>connectivity tool</td>
+<td>Peer and network checks</td>
+</tr>
+</tbody>
+</table>
+<p>CMake also builds test targets (<code>coretests</code>, <code>crypto-tests</code>, and others) under <code>tests/</code>. They are for contributors, not for mainnet.</p>
+<h2 id="dependencies-the-readme-lists">Dependencies the README lists</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Recommended in the README</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GCC</td>
+<td>9.4.0</td>
+</tr>
+<tr>
+<td>CMake</td>
+<td>3.26.3</td>
+</tr>
+<tr>
+<td>Boost</td>
+<td>1.84</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td>1.1.1w</td>
+</tr>
+<tr>
+<td>Qt, GUI only</td>
+<td>5.11.2 in the README. The CMake file uses Qt 6 when Qt 5 WebEngine is absent</td>
+</tr>
+</tbody>
+</table>
+<p>Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The v2.0.0 GUI AppImage is built for Ubuntu 22.04.</p>
+<p>Server packages from the README:</p>
+<pre><code class="language-text">sudo apt-get install -y build-essential g++ curl autotools-dev libicu-dev libbz2-dev cmake git screen checkinstall zlib1g-dev
+</code></pre>
+<p>The GUI package list adds <code>mesa-common-dev</code> and <code>libglu1-mesa-dev</code>.</p>
+<h2 id="a-node-only-build">A node-only build</h2>
+<p>After Boost and OpenSSL are installed and <code>BOOST_ROOT</code> and <code>OPENSSL_ROOT_DIR</code> point at them:</p>
+<pre><code class="language-text">cd pdc
+mkdir build &amp;&amp; cd build
+cmake ..
+make -j1 daemon simplewallet
+</code></pre>
+<p><code>-j1</code> is the README's safe default. Raise it only when the machine has enough RAM. A testnet binary is <code>cmake -D TESTNET=TRUE ..</code>. Testnet uses different ports and different hard-fork heights. Do not point a testnet binary at mainnet peers and expect them to sync.</p>
+<p>The Linux GUI script in the repository is <code>utils/build_script_linux.sh</code>. Windows builds start from <code>utils/configure_local_paths.cmd</code> and a Visual Studio generator script. macOS builds start from <code>utils/macosx_build_config.command</code> and <code>utils/build_script_mac_osx.sh</code>. Those scripts are the platform-specific steps. Read them before you run them, and edit the paths so they match the machine.</p>
+<h2 id="where-the-node-writes-data">Where the node writes data</h2>
+<p>The default data directory is <code>~/.PDC</code> on Linux, <code>~/Library/Application Support/PDC</code> on macOS, and the roaming <code>PDC</code> folder on 64-bit Windows. <code>--data-dir</code> overrides it.</p>
+<p>Inside that folder the chain uses a directory whose name starts with <code>blockchain_</code> and ends with <code>_v2</code>. The peer cache is <code>p2pstate.bin</code>. The GUI keeps <code>gui_settings.json</code> and <code>gui_secure_conf.bin</code>. The miner config file name is <code>miner_conf.json</code>.</p>
+        <nav class="pager"><a href="../../use/troubleshooting.html">← Troubleshooting</a><a href="../../build/rpc.html">Node RPC →</a></nav>
+        <p class="footer">Facts in this manual come from the <a href="https://github.com/ArqTras/pdc">ArqTras/pdc</a> tree, branch <code>pdc</code>, and from release v2.0.0. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
+      </article>
+    </main>
+    <aside class="toc">
+      <h2>On this page</h2>
+      <div class="toc">
+<ul>
+<li><a href="#what-the-build-produces">What the build produces</a></li>
+<li><a href="#dependencies-the-readme-lists">Dependencies the README lists</a></li>
+<li><a href="#a-node-only-build">A node-only build</a></li>
+<li><a href="#where-the-node-writes-data">Where the node writes data</a></li>
+</ul>
+</div>
+
+    </aside>
+  </div>
+  <script src="../../js/docs.js"></script>
+</body>
+</html>
