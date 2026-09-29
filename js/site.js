@@ -1,6 +1,57 @@
 (function () {
   const dict = window.PDC_I18N;
   const layers = window.PDC_LAYERS;
+  let releaseInfo = {
+    tag: "v2.0.0",
+    date: "17 September 2026",
+    url: "https://github.com/ArqTras/pdc/releases/tag/v2.0.0",
+    body: ""
+  };
+
+  function fill(value) {
+    return value
+      .replaceAll("{version}", releaseInfo.tag)
+      .replaceAll("{date}", releaseInfo.date);
+  }
+
+  function formatNotes(body) {
+    const escaped = body.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    let html = "";
+    let inList = false;
+    function closeList() {
+      if (inList) {
+        html += "</ul>";
+        inList = false;
+      }
+    }
+    function inline(text) {
+      return text
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    }
+    escaped.split("\n").forEach((line) => {
+      if (line.startsWith("### ")) {
+        closeList();
+        html += "<h3>" + inline(line.slice(4)) + "</h3>";
+      } else if (line.startsWith("## ")) {
+        closeList();
+        html += "<h2>" + inline(line.slice(3)) + "</h2>";
+      } else if (line.startsWith("- ")) {
+        if (!inList) {
+          html += "<ul>";
+          inList = true;
+        }
+        html += "<li>" + inline(line.slice(2)) + "</li>";
+      } else if (line.trim() === "") {
+        closeList();
+      } else {
+        closeList();
+        html += "<p>" + inline(line) + "</p>";
+      }
+    });
+    closeList();
+    return html;
+  }
 
   function apply() {
     localStorage.removeItem("pdc-lang");
@@ -9,11 +60,22 @@
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const value = table[el.dataset.i18n];
       if (value == null) return;
-      if (el.dataset.i18nHtml === "1") el.innerHTML = value;
-      else el.textContent = value;
+      const text = fill(value);
+      if (el.dataset.i18nHtml === "1") el.innerHTML = text;
+      else el.textContent = text;
     });
+    document.querySelectorAll("[data-release-url]").forEach((el) => {
+      el.href = releaseInfo.url;
+    });
+    const notes = document.querySelector("[data-release-notes]");
+    if (notes && releaseInfo.body) notes.innerHTML = formatNotes(releaseInfo.body);
     renderLayers();
   }
+
+  window.PDC_USE_RELEASE = function (info) {
+    releaseInfo = info;
+    apply();
+  };
 
   function renderLayers() {
     const host = document.querySelector("[data-layers]");
