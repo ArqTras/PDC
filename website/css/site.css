@@ -382,6 +382,9 @@ details p { margin-bottom: 0; }
   font-weight: 650;
 }
 .dl a span { color: var(--cyan); font-family: var(--mono); font-size: 0.78rem; }
+.release-notes h2, .release-notes h3 { font-size: 1.05rem; margin: 1rem 0 0.35rem; }
+.release-notes p, .release-notes li { color: var(--muted); }
+.release-notes ul { margin: 0.2rem 0 0.8rem; }
 .site-footer {
   border-top: 1px solid var(--line);
   padding: 1.5rem 0 2.2rem;
