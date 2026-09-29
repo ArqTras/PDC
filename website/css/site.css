@@ -89,24 +89,23 @@ button, input { font: inherit; color: inherit; }
 }
 .brand {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
   text-decoration: none;
   color: var(--ink);
 }
-.brand svg { width: 2.6rem; height: 2.6rem; flex: none; }
-.brand strong {
-  display: block;
-  font-family: var(--display);
-  font-size: 1.25rem;
-  letter-spacing: 0.08em;
-  color: #fff;
+.brand img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
 }
 .brand small {
   display: block;
   color: var(--muted);
   font-size: 0.82rem;
   letter-spacing: 0.01em;
+  padding-left: 0.15rem;
 }
 .side-nav { display: flex; flex-direction: column; gap: 0.35rem; }
 .side-nav a {
