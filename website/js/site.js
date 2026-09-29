@@ -69,9 +69,11 @@
 
   const promo = document.querySelector(".promo-video");
   if (promo) {
-    promo.muted = true;
-    const start = promo.play();
-    if (start && typeof start.catch === "function") start.catch(function () {});
+    promo.autoplay = false;
+    promo.muted = false;
+    promo.defaultMuted = false;
+    promo.volume = 1;
+    promo.pause();
   }
 
   apply();
