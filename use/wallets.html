@@ -8,16 +8,17 @@
   <link rel="icon" href="../favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/docs.css">
 </head>
 <body>
-  <button class="menu" type="button" data-menu aria-expanded="false">Menu</button>
+  <canvas class="rain" aria-hidden="true"></canvas>
+  <button class="menu-btn" type="button" data-menu aria-expanded="false">Menu</button>
   <div class="backdrop" data-backdrop hidden></div>
   <aside class="sidebar">
     <a class="brand" href="../index.html">
-      <img src="../graphics/pdc-logo.png" alt="PDC">
-      <small>Documentation</small>
+      <img class="brand-mark" src="../graphics/pdc-mark.png" width="42" height="42" alt="">
+      <span><strong>PDC</strong><small>Documentation</small></span>
     </a>
     <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a>
     <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
@@ -196,6 +197,7 @@
 
     </aside>
   </div>
+  <script src="../js/rain.js"></script>
   <script src="../js/docs.js"></script>
   <script src="../js/release.js"></script>
 </body>

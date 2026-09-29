@@ -117,16 +117,17 @@ def page(slug: str, title: str, section: str, body_html: str, toc_html: str):
   <link rel="icon" href="{prefix}favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{prefix}css/docs.css">
 </head>
 <body>
-  <button class="menu" type="button" data-menu aria-expanded="false">Menu</button>
+  <canvas class="rain" aria-hidden="true"></canvas>
+  <button class="menu-btn" type="button" data-menu aria-expanded="false">Menu</button>
   <div class="backdrop" data-backdrop hidden></div>
   <aside class="sidebar">
     <a class="brand" href="{home}">
-      <img src="{prefix}graphics/pdc-logo.png" alt="PDC">
-      <small>Documentation</small>
+      <img class="brand-mark" src="{prefix}graphics/pdc-mark.png" width="42" height="42" alt="">
+      <span><strong>PDC</strong><small>Documentation</small></span>
     </a>
     <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a>
     <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
@@ -147,6 +148,7 @@ def page(slug: str, title: str, section: str, body_html: str, toc_html: str):
       {toc_html or "<p>This page is short.</p>"}
     </aside>
   </div>
+  <script src="{prefix}js/rain.js"></script>
   <script src="{prefix}js/docs.js"></script>
   <script src="{prefix}js/release.js"></script>
 </body>
