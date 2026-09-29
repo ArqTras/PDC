@@ -1,23 +1,16 @@
 (function () {
   const dict = window.PDC_I18N;
   const layers = window.PDC_LAYERS;
-  const stored = localStorage.getItem("pdc-lang");
-  const browserPl = (navigator.language || "").toLowerCase().startsWith("pl");
-  let lang = stored === "pl" || stored === "en" ? stored : (browserPl ? "pl" : "en");
 
-  function apply(next) {
-    lang = next;
-    localStorage.setItem("pdc-lang", lang);
-    document.documentElement.lang = lang === "pl" ? "pl" : "en";
-    const table = dict[lang];
+  function apply() {
+    localStorage.removeItem("pdc-lang");
+    document.documentElement.lang = "en";
+    const table = dict.en;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const value = table[el.dataset.i18n];
       if (value == null) return;
       if (el.dataset.i18nHtml === "1") el.innerHTML = value;
       else el.textContent = value;
-    });
-    document.querySelectorAll(".lang button").forEach((btn) => {
-      btn.setAttribute("aria-pressed", btn.dataset.lang === lang ? "true" : "false");
     });
     renderLayers();
   }
@@ -25,7 +18,7 @@
   function renderLayers() {
     const host = document.querySelector("[data-layers]");
     if (!host || !layers) return;
-    const pack = layers[lang];
+    const pack = layers.en;
     const current = host.dataset.current || pack[0].id;
     host.dataset.current = current;
     host.innerHTML = pack.map((layer) => {
@@ -47,11 +40,6 @@
   }
 
   document.addEventListener("click", (event) => {
-    const langBtn = event.target.closest(".lang button");
-    if (langBtn) {
-      apply(langBtn.dataset.lang);
-      return;
-    }
     const layerBtn = event.target.closest("[data-layer]");
     if (layerBtn) {
       const host = document.querySelector("[data-layers]");
@@ -86,5 +74,5 @@
     if (start && typeof start.catch === "function") start.catch(function () {});
   }
 
-  apply(lang);
+  apply();
 })();
