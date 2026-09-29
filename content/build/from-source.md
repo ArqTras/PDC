@@ -31,7 +31,7 @@ CMake also builds test targets (`coretests`, `crypto-tests`, and others) under `
 | OpenSSL | 1.1.1w |
 | Qt, GUI only | 5.11.2 in the README. The CMake file uses Qt 6 when Qt 5 WebEngine is absent |
 
-Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The v2.0.0 GUI AppImage is built for Ubuntu 22.04.
+Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The GUI AppImage in release <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a> is built for Ubuntu 22.04.
 
 Server packages from the README:
 

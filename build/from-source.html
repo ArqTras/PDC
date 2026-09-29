@@ -5,27 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Build from source · PDC Docs</title>
   <meta name="description" content="Clone, dependencies, and the daemon build.">
-  <link rel="icon" href="../../favicon.png" type="image/png">
+  <link rel="icon" href="../favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css">
+  <link rel="stylesheet" href="../css/docs.css">
 </head>
 <body>
   <button class="menu" type="button" data-menu aria-expanded="false">Menu</button>
   <div class="backdrop" data-backdrop hidden></div>
   <aside class="sidebar">
-    <a class="brand" href="../../index.html">
-      <img src="../../graphics/pdc-logo.png" alt="PDC">
+    <a class="brand" href="../index.html">
+      <img src="../graphics/pdc-logo.png" alt="PDC">
       <small>Documentation</small>
     </a>
+    <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a>
     <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
-    <div class="nav-group"><h2>Learn</h2><a href="../../learn/what-is-pdc.html">What PDC is</a><a href="../../learn/how-it-works.html">How PDC works</a><a href="../../learn/faq.html">FAQ</a></div>
-<div class="nav-group"><h2>Use</h2><a href="../../use/getting-started.html">Getting started</a><a href="../../use/wallets.html">Wallets</a><a href="../../use/security.html">Security and privacy</a><a href="../../use/troubleshooting.html">Troubleshooting</a></div>
-<div class="nav-group"><h2>Build</h2><a href="../../build/from-source.html" aria-current="page">Build from source</a><a href="../../build/rpc.html">Node RPC</a><a href="../../build/assets.html">Confidential assets</a><a href="../../build/aliases.html">Aliases</a><a href="../../build/services.html">Escrow, swaps, and offers</a></div>
-<div class="nav-group"><h2>Mine</h2><a href="../../mine/mining.html">Mining</a></div>
-<div class="nav-group"><h2>Stake</h2><a href="../../stake/staking.html">Staking</a><a href="../../stake/proof-of-stake.html">Proof of stake</a></div>
-<div class="nav-group"><h2>Code</h2><a href="../../code/parameters.html">Network parameters</a><a href="../../code/source-map.html">Source map</a></div>
+    <div class="nav-group"><h2>Learn</h2><a href="../learn/what-is-pdc.html">What PDC is</a><a href="../learn/how-it-works.html">How PDC works</a><a href="../learn/faq.html">FAQ</a></div>
+<div class="nav-group"><h2>Use</h2><a href="../use/getting-started.html">Getting started</a><a href="../use/wallets.html">Wallets</a><a href="../use/security.html">Security and privacy</a><a href="../use/troubleshooting.html">Troubleshooting</a></div>
+<div class="nav-group"><h2>Build</h2><a href="../build/from-source.html" aria-current="page">Build from source</a><a href="../build/rpc.html">Node RPC</a><a href="../build/assets.html">Confidential assets</a><a href="../build/aliases.html">Aliases</a><a href="../build/services.html">Escrow, swaps, and offers</a></div>
+<div class="nav-group"><h2>Mine</h2><a href="../mine/mining.html">Mining</a></div>
+<div class="nav-group"><h2>Stake</h2><a href="../stake/staking.html">Staking</a><a href="../stake/proof-of-stake.html">Proof of stake</a></div>
+<div class="nav-group"><h2>Code</h2><a href="../code/parameters.html">Network parameters</a><a href="../code/source-map.html">Source map</a></div>
   </aside>
   <div class="layout">
     <main>
@@ -100,7 +101,7 @@
 </tr>
 </tbody>
 </table>
-<p>Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The v2.0.0 GUI AppImage is built for Ubuntu 22.04.</p>
+<p>Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The GUI AppImage in release <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a> is built for Ubuntu 22.04.</p>
 <p>Server packages from the README:</p>
 <pre><code class="language-text">sudo apt-get install -y build-essential g++ curl autotools-dev libicu-dev libbz2-dev cmake git screen checkinstall zlib1g-dev
 </code></pre>
@@ -117,8 +118,8 @@ make -j1 daemon simplewallet
 <h2 id="where-the-node-writes-data">Where the node writes data</h2>
 <p>The default data directory is <code>~/.PDC</code> on Linux, <code>~/Library/Application Support/PDC</code> on macOS, and the roaming <code>PDC</code> folder on 64-bit Windows. <code>--data-dir</code> overrides it.</p>
 <p>Inside that folder the chain uses a directory whose name starts with <code>blockchain_</code> and ends with <code>_v2</code>. The peer cache is <code>p2pstate.bin</code>. The GUI keeps <code>gui_settings.json</code> and <code>gui_secure_conf.bin</code>. The miner config file name is <code>miner_conf.json</code>.</p>
-        <nav class="pager"><a href="../../use/troubleshooting.html">← Troubleshooting</a><a href="../../build/rpc.html">Node RPC →</a></nav>
-        <p class="footer">Facts in this manual come from the <a href="https://github.com/ArqTras/pdc">ArqTras/pdc</a> tree, branch <code>pdc</code>, and from release v2.0.0. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
+        <nav class="pager"><a href="../use/troubleshooting.html">← Troubleshooting</a><a href="../build/rpc.html">Node RPC →</a></nav>
+        <p class="footer">Edition <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a> follows the latest release of <a href="https://github.com/PrivacyDataCoin-Project/pdc">PrivacyDataCoin-Project/pdc</a>. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
       </article>
     </main>
     <aside class="toc">
@@ -134,6 +135,7 @@ make -j1 daemon simplewallet
 
     </aside>
   </div>
-  <script src="../../js/docs.js"></script>
+  <script src="../js/docs.js"></script>
+  <script src="../js/release.js"></script>
 </body>
 </html>

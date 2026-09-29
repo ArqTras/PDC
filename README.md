@@ -2,7 +2,9 @@
 
 English manual for Privacy Data Coin. The section order follows a full-chain manual: learn the protocol, use a wallet, build and integrate, mine, stake, and read the source. The colors, the logo, and the facts are PDC.
 
-Numbers come from [ArqTras/pdc](https://github.com/ArqTras/pdc) branch `pdc`, especially `src/currency_core/currency_config.h`, and from [release v2.0.0](https://github.com/ArqTras/pdc/releases/tag/v2.0.0) (17 September 2026). That release resets the network and does not speak to v1.0.0.7.
+Protocol numbers come from the PDC source, especially `src/currency_core/currency_config.h`. The edition number and the install files follow the latest GitHub release of [PrivacyDataCoin-Project/pdc](https://github.com/PrivacyDataCoin-Project/pdc). The published manual reads that release on each page load. The release current at the time of this writing is [v2.1.0](https://github.com/PrivacyDataCoin-Project/pdc/releases/tag/v2.1.0) (28 September 2026).
+
+Release v2.0.0 reset the network. Its genesis and peer-to-peer identity do not match v1.0.0.7. Later tags stay on that chain unless their own notes say otherwise.
 
 ## Read it
 
@@ -20,11 +22,12 @@ Public references used in the manual:
 - Site: https://privacydatacoin.com/
 - Explorer: https://explorer.privacydatacoin.com/
 - Asset whitelist: https://api.privacydatacoin.com/assets_whitelist.json
+- Current binaries: https://github.com/PrivacyDataCoin-Project/pdc/releases/latest
 
 ## Sections
 
 - Learn: what PDC is, how a transfer works, FAQ
-- Use: install v2.0.0, wallets, security, troubleshooting
+- Use: install the current release, wallets, security, troubleshooting
 - Build: compile the tree, node RPC, assets, aliases, escrow and swaps
 - Mine: RandomARQ and stratum port 19777
 - Stake: online staking and the Zarcanum rules
