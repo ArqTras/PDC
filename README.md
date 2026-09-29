@@ -6,7 +6,9 @@ Numbers come from [ArqTras/pdc](https://github.com/ArqTras/pdc) branch `pdc`, es
 
 ## Read it
 
-The markdown sources are in `content/`. The pages you open in a browser are the HTML files next to this README. Regenerate them after an edit:
+The rendered manual is published at https://privacydatacoin.com/pdcdocs/.
+
+The markdown sources are in `content/`. The HTML next to this README is what that address serves. Regenerate it after an edit:
 
 ```text
 python3 -m pip install markdown
