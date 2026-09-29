@@ -79,5 +79,12 @@
     }
   });
 
+  const promo = document.querySelector(".promo-video");
+  if (promo) {
+    promo.muted = true;
+    const start = promo.play();
+    if (start && typeof start.catch === "function") start.catch(function () {});
+  }
+
   apply(lang);
 })();
