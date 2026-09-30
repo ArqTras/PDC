@@ -43,7 +43,7 @@ Proof-of-stake blocks cannot run forever in a row. `BLOCK_POS_STRICT_SEQUENCE_LI
 
 ## Hard forks
 
-Mainnet heights are fixed in `currency_config.h`. Hard fork 5 is not scheduled: its height is set far beyond any practical chain length.
+Mainnet heights are fixed in `currency_config.h`. Hard forks 5, 6, and 7 share one height, so they become active together once the chain passes block 1199. A node older than build 3 is rejected from that point. PDC has no gateway types, and these three forks stay on the same height so that window never opens.
 
 | Fork | Active after height | What changes for a user |
 | --- | --- | --- |
@@ -51,9 +51,9 @@ Mainnet heights are fixed in `currency_config.h`. Hard fork 5 is not scheduled: 
 | 2 | 40 | Early consensus rules |
 | 3 | 60 | Block version moves forward |
 | 4 Zarcanum | 100 | Mandatory 15 decoys, minimum coin age 10, transaction version 2, Zarcanum stake, confidential assets in their post-fork form |
-| 5 | not scheduled | Present in the source, not active on mainnet |
+| 5, 6, and 7 | 1199 | Active together. Nodes must be at least build 3 |
 
-The comments next to the mainnet heights record historical timestamps from the code's lineage. On this network the heights are the rules that matter: fork 4 is the one a wallet feels, and it is already active once the chain passes block 100.
+The comments next to the earlier mainnet heights record historical timestamps from the code's lineage. On this network the heights are the rules that matter: fork 4 is already active once the chain passes block 100, and forks 5, 6, and 7 follow after height 1199.
 
 ## Mempool and reorgs
 
