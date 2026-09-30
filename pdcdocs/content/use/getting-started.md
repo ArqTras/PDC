@@ -2,20 +2,23 @@
 title: Getting started
 ---
 
-Use release v2.0.0. It was published on 17 September 2026. The release notes state that this version resets the network and is incompatible with v1.0.0.7.
+Use release <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a>, published <span data-doc-date>30 September 2026</span>. That number is the latest release of [PrivacyDataCoin-Project/pdc](https://github.com/PrivacyDataCoin-Project/pdc). Stay on the current release for both the wallet and the node.
 
-Download the files from [the v2.0.0 release](https://github.com/ArqTras/pdc/releases/tag/v2.0.0).
-
-| File | Role | Approximate size |
-| --- | --- | --- |
-| `Pdc-GUI-v2.0.0-ubuntu-22.04.AppImage` | Linux desktop wallet | 169 MB |
-| `Pdc-Gui-v2.0.0-ubuntu-22.04.tar.gz` | Linux desktop wallet archive | 164 MB |
-| `Pdc-Gui-v2.0.0-windows.exe` | Windows installer | 98 MB |
-| `Pdc-Gui-v2.0.0-windows.zip` | Windows desktop wallet archive | 116 MB |
-| `Pdc-Gui-v2.0.0-osx.tar.gz` | macOS desktop wallet | 154 MB |
-| `Pdc-v2.0.0-ubuntu-22.04.tar.gz` | Linux daemon and simplewallet | 50 MB |
-| `Pdc-v2.0.0-windows.zip` | Windows daemon and simplewallet | 10 MB |
-| `Pdc-v2.0.0-osx.tar.gz` | macOS daemon and simplewallet | 12 MB |
+<div data-release-files>
+<table>
+<thead><tr><th>File</th><th>Role</th><th>Size</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-GUI-v2.2.0-ubuntu-22.04.AppImage">Pdc-GUI-v2.2.0-ubuntu-22.04.AppImage</a></td><td>Linux desktop wallet</td><td>169 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-Gui-v2.2.0-ubuntu-22.04.tar.gz">Pdc-Gui-v2.2.0-ubuntu-22.04.tar.gz</a></td><td>Linux desktop wallet archive</td><td>164 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-Gui-v2.2.0-windows.exe">Pdc-Gui-v2.2.0-windows.exe</a></td><td>Windows installer</td><td>97 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-Gui-v2.2.0-windows.zip">Pdc-Gui-v2.2.0-windows.zip</a></td><td>Windows desktop wallet archive</td><td>116 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-Gui-v2.2.0-osx.tar.gz">Pdc-Gui-v2.2.0-osx.tar.gz</a></td><td>macOS desktop wallet</td><td>154 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-v2.2.0-ubuntu-22.04.tar.gz">Pdc-v2.2.0-ubuntu-22.04.tar.gz</a></td><td>Linux daemon and simplewallet</td><td>50 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-v2.2.0-windows.zip">Pdc-v2.2.0-windows.zip</a></td><td>Windows daemon and simplewallet</td><td>9.6 MB</td></tr>
+<tr><td><a href="https://github.com/PrivacyDataCoin-Project/pdc/releases/download/v2.2.0/Pdc-v2.2.0-osx.tar.gz">Pdc-v2.2.0-osx.tar.gz</a></td><td>macOS daemon and simplewallet</td><td>12 MB</td></tr>
+</tbody>
+</table>
+</div>
 
 The GUI binaries in that release are a Qt 6 build. A source build uses Qt 5 WebEngine when it is installed, and Qt 6 otherwise.
 

@@ -5,27 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How PDC works · PDC Docs</title>
   <meta name="description" content="Addresses, proofs, consensus, and the block reward.">
-  <link rel="icon" href="../../favicon.png" type="image/png">
+  <link rel="icon" href="../favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/docs.css">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/docs.css">
 </head>
 <body>
-  <button class="menu" type="button" data-menu aria-expanded="false">Menu</button>
+  <canvas class="rain" aria-hidden="true"></canvas>
+  <button class="menu-btn" type="button" data-menu aria-expanded="false">Menu</button>
   <div class="backdrop" data-backdrop hidden></div>
   <aside class="sidebar">
-    <a class="brand" href="../../index.html">
-      <img src="../../graphics/pdc-logo.png" alt="PDC">
-      <small>Documentation</small>
+    <a class="brand" href="../index.html">
+      <img class="brand-mark" src="../graphics/pdc-mark.png" width="42" height="42" alt="">
+      <span><strong>PDC</strong><small>Documentation</small></span>
     </a>
+    <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a>
     <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
-    <div class="nav-group"><h2>Learn</h2><a href="../../learn/what-is-pdc.html">What PDC is</a><a href="../../learn/how-it-works.html" aria-current="page">How PDC works</a><a href="../../learn/faq.html">FAQ</a></div>
-<div class="nav-group"><h2>Use</h2><a href="../../use/getting-started.html">Getting started</a><a href="../../use/wallets.html">Wallets</a><a href="../../use/security.html">Security and privacy</a><a href="../../use/troubleshooting.html">Troubleshooting</a></div>
-<div class="nav-group"><h2>Build</h2><a href="../../build/from-source.html">Build from source</a><a href="../../build/rpc.html">Node RPC</a><a href="../../build/assets.html">Confidential assets</a><a href="../../build/aliases.html">Aliases</a><a href="../../build/services.html">Escrow, swaps, and offers</a></div>
-<div class="nav-group"><h2>Mine</h2><a href="../../mine/mining.html">Mining</a></div>
-<div class="nav-group"><h2>Stake</h2><a href="../../stake/staking.html">Staking</a><a href="../../stake/proof-of-stake.html">Proof of stake</a></div>
-<div class="nav-group"><h2>Code</h2><a href="../../code/parameters.html">Network parameters</a><a href="../../code/source-map.html">Source map</a></div>
+    <div class="nav-group"><h2>Learn</h2><a href="../learn/what-is-pdc.html">What PDC is</a><a href="../learn/how-it-works.html" aria-current="page">How PDC works</a><a href="../learn/faq.html">FAQ</a></div>
+<div class="nav-group"><h2>Use</h2><a href="../use/getting-started.html">Getting started</a><a href="../use/wallets.html">Wallets</a><a href="../use/security.html">Security and privacy</a><a href="../use/troubleshooting.html">Troubleshooting</a></div>
+<div class="nav-group"><h2>Build</h2><a href="../build/from-source.html">Build from source</a><a href="../build/rpc.html">Node RPC</a><a href="../build/assets.html">Confidential assets</a><a href="../build/aliases.html">Aliases</a><a href="../build/services.html">Escrow, swaps, and offers</a></div>
+<div class="nav-group"><h2>Mine</h2><a href="../mine/mining.html">Mining</a></div>
+<div class="nav-group"><h2>Stake</h2><a href="../stake/staking.html">Staking</a><a href="../stake/proof-of-stake.html">Proof of stake</a></div>
+<div class="nav-group"><h2>Code</h2><a href="../code/parameters.html">Network parameters</a><a href="../code/source-map.html">Source map</a></div>
   </aside>
   <div class="layout">
     <main>
@@ -84,7 +86,7 @@
 <p>Difficulty is adjusted over a window of 720 blocks, with a lag of 15 and a cut of 60 timestamps. The proof-of-work target and the proof-of-stake target are 120 seconds each. <code>DIFFICULTY_TOTAL_TARGET</code> is their sum divided by 4, which is 60 seconds. <code>CURRENCY_BLOCKS_PER_DAY</code> is therefore 1,440.</p>
 <p>Proof-of-stake blocks cannot run forever in a row. <code>BLOCK_POS_STRICT_SEQUENCE_LIMIT</code> is 20, so the longest allowed run is 21 sequential proof-of-stake blocks.</p>
 <h2 id="hard-forks">Hard forks</h2>
-<p>Mainnet heights are fixed in <code>currency_config.h</code>. Hard fork 5 is not scheduled: its height is set far beyond any practical chain length.</p>
+<p>Mainnet heights are fixed in <code>currency_config.h</code>. Hard forks 5, 6, and 7 share one height, so they become active together once the chain passes block 1199. A node older than build 3 is rejected from that point. PDC has no gateway types, and these three forks stay on the same height so that window never opens.</p>
 <table>
 <thead>
 <tr>
@@ -115,17 +117,17 @@
 <td>Mandatory 15 decoys, minimum coin age 10, transaction version 2, Zarcanum stake, confidential assets in their post-fork form</td>
 </tr>
 <tr>
-<td>5</td>
-<td>not scheduled</td>
-<td>Present in the source, not active on mainnet</td>
+<td>5, 6, and 7</td>
+<td>1199</td>
+<td>Active together. Nodes must be at least build 3</td>
 </tr>
 </tbody>
 </table>
-<p>The comments next to the mainnet heights record historical timestamps from the code's lineage. On this network the heights are the rules that matter: fork 4 is the one a wallet feels, and it is already active once the chain passes block 100.</p>
+<p>The comments next to the earlier mainnet heights record historical timestamps from the code's lineage. On this network the heights are the rules that matter: fork 4 is already active once the chain passes block 100, and forks 5, 6, and 7 follow after height 1199.</p>
 <h2 id="mempool-and-reorgs">Mempool and reorgs</h2>
 <p>A transaction can sit in the pool for 345,600 seconds (4 days) before the lifetime rule drops it. Alternative blocks are kept for a limited time: the live window is about 2 hours of blocks (<code>CURRENCY_ALT_BLOCK_LIVETIME_COUNT</code>), and the stored set is capped at 43,200 entries.</p>
-        <nav class="pager"><a href="../../learn/what-is-pdc.html">← What PDC is</a><a href="../../learn/faq.html">FAQ →</a></nav>
-        <p class="footer">Facts in this manual come from the <a href="https://github.com/ArqTras/pdc">ArqTras/pdc</a> tree, branch <code>pdc</code>, and from release v2.0.0. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
+        <nav class="pager"><a href="../learn/what-is-pdc.html">← What PDC is</a><a href="../learn/faq.html">FAQ →</a></nav>
+        <p class="footer">Edition <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a> follows the latest release of <a href="https://github.com/PrivacyDataCoin-Project/pdc">PrivacyDataCoin-Project/pdc</a>. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
       </article>
     </main>
     <aside class="toc">
@@ -143,6 +145,8 @@
 
     </aside>
   </div>
-  <script src="../../js/docs.js"></script>
+  <script src="../js/rain.js"></script>
+  <script src="../js/docs.js"></script>
+  <script src="../js/release.js"></script>
 </body>
 </html>

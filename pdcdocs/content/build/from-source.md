@@ -2,10 +2,10 @@
 title: Build from source
 ---
 
-The repository is [github.com/ArqTras/pdc](https://github.com/ArqTras/pdc), branch `pdc`. Clone it with submodules. A clone without `--recursive` misses the bundled libraries and will not configure.
+The repository is [github.com/PrivacyDataCoin-Project/pdc](https://github.com/PrivacyDataCoin-Project/pdc), branch `master`. Clone it with submodules. A clone without `--recursive` misses the bundled libraries and will not configure.
 
 ```text
-git clone --recursive https://github.com/ArqTras/pdc.git -b pdc
+git clone --recursive https://github.com/PrivacyDataCoin-Project/PDC.git
 ```
 
 The README in that repository is the long-form build guide. This page is the map. If a checksum or an installer URL in the README and a newer release note disagree, follow the file you are actually building.
@@ -31,7 +31,7 @@ CMake also builds test targets (`coretests`, `crypto-tests`, and others) under `
 | OpenSSL | 1.1.1w |
 | Qt, GUI only | 5.11.2 in the README. The CMake file uses Qt 6 when Qt 5 WebEngine is absent |
 
-Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The v2.0.0 GUI AppImage is built for Ubuntu 22.04.
+Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The GUI AppImage in release <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a> is built for Ubuntu 22.04.
 
 Server packages from the README:
 

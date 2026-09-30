@@ -2,7 +2,7 @@
 title: Source map
 ---
 
-The tree you want is branch `pdc` of [ArqTras/pdc](https://github.com/ArqTras/pdc). Paths below are from the repository root.
+The tree you want is branch `master` of [PrivacyDataCoin-Project/pdc](https://github.com/PrivacyDataCoin-Project/pdc). Paths below are from the repository root.
 
 | Path | What lives there |
 | --- | --- |
@@ -32,7 +32,7 @@ The tree you want is branch `pdc` of [ArqTras/pdc](https://github.com/ArqTras/pd
 
 | Piece | Where it is published |
 | --- | --- |
-| Desktop wallet and node binaries | [Release v2.0.0](https://github.com/ArqTras/pdc/releases/tag/v2.0.0) |
+| Desktop wallet and node binaries | [PrivacyDataCoin-Project/pdc releases](https://github.com/PrivacyDataCoin-Project/pdc/releases/latest), currently <span data-doc-version>v2.2.0</span> |
 | Project site | [privacydatacoin.com](https://privacydatacoin.com/) |
 | Block explorer | [explorer.privacydatacoin.com](https://explorer.privacydatacoin.com/) |
 | Asset whitelist | [api.privacydatacoin.com/assets_whitelist.json](https://api.privacydatacoin.com/assets_whitelist.json) |

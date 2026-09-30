@@ -1,5 +1,5 @@
 (function () {
-  const endpoint = "https://api.github.com/repos/ArqTras/pdc/releases/latest";
+  const endpoint = "https://api.github.com/repos/PrivacyDataCoin-Project/pdc/releases/latest";
 
   function megabytes(size) {
     const mb = Number(size) / 1048576;
@@ -72,9 +72,9 @@
     })
     .then((release) => {
       const info = {
-        tag: release.tag_name || "v2.0.0",
+        tag: release.tag_name || "v2.2.0",
         date: published(release.published_at),
-        url: release.html_url || "https://github.com/ArqTras/pdc/releases/latest",
+        url: release.html_url || "https://github.com/PrivacyDataCoin-Project/pdc/releases/latest",
         body: (release.body || "").trim(),
         assets: Array.isArray(release.assets) ? release.assets : []
       };
