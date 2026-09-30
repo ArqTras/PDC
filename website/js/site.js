@@ -1,31 +1,86 @@
 (function () {
   const dict = window.PDC_I18N;
   const layers = window.PDC_LAYERS;
-  const stored = localStorage.getItem("pdc-lang");
-  const browserPl = (navigator.language || "").toLowerCase().startsWith("pl");
-  let lang = stored === "pl" || stored === "en" ? stored : (browserPl ? "pl" : "en");
+  let releaseInfo = {
+    tag: "v2.2.0",
+    date: "30 September 2026",
+    url: "https://github.com/PrivacyDataCoin-Project/pdc/releases/tag/v2.2.0",
+    body: ""
+  };
 
-  function apply(next) {
-    lang = next;
-    localStorage.setItem("pdc-lang", lang);
-    document.documentElement.lang = lang === "pl" ? "pl" : "en";
-    const table = dict[lang];
+  function fill(value) {
+    return value
+      .replaceAll("{version}", releaseInfo.tag)
+      .replaceAll("{date}", releaseInfo.date);
+  }
+
+  function formatNotes(body) {
+    const escaped = body.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    let html = "";
+    let inList = false;
+    function closeList() {
+      if (inList) {
+        html += "</ul>";
+        inList = false;
+      }
+    }
+    function inline(text) {
+      return text
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    }
+    escaped.split("\n").forEach((line) => {
+      if (line.startsWith("### ")) {
+        closeList();
+        html += "<h3>" + inline(line.slice(4)) + "</h3>";
+      } else if (line.startsWith("## ")) {
+        closeList();
+        html += "<h2>" + inline(line.slice(3)) + "</h2>";
+      } else if (line.startsWith("- ")) {
+        if (!inList) {
+          html += "<ul>";
+          inList = true;
+        }
+        html += "<li>" + inline(line.slice(2)) + "</li>";
+      } else if (line.trim() === "") {
+        closeList();
+      } else {
+        closeList();
+        html += "<p>" + inline(line) + "</p>";
+      }
+    });
+    closeList();
+    return html;
+  }
+
+  function apply() {
+    localStorage.removeItem("pdc-lang");
+    document.documentElement.lang = "en";
+    const table = dict.en;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const value = table[el.dataset.i18n];
       if (value == null) return;
-      if (el.dataset.i18nHtml === "1") el.innerHTML = value;
-      else el.textContent = value;
+      const text = fill(value);
+      if (el.dataset.i18nHtml === "1") el.innerHTML = text;
+      else el.textContent = text;
     });
-    document.querySelectorAll(".lang button").forEach((btn) => {
-      btn.setAttribute("aria-pressed", btn.dataset.lang === lang ? "true" : "false");
+    document.querySelectorAll("[data-release-url]").forEach((el) => {
+      el.href = releaseInfo.url;
     });
+    const notes = document.querySelector("[data-release-notes]");
+    if (notes && releaseInfo.body) notes.innerHTML = formatNotes(releaseInfo.body);
     renderLayers();
   }
+
+  window.PDC_USE_RELEASE = function (info) {
+    releaseInfo = info;
+    apply();
+  };
 
   function renderLayers() {
     const host = document.querySelector("[data-layers]");
     if (!host || !layers) return;
-    const pack = layers[lang];
+    const pack = layers.en;
     const current = host.dataset.current || pack[0].id;
     host.dataset.current = current;
     host.innerHTML = pack.map((layer) => {
@@ -47,11 +102,6 @@
   }
 
   document.addEventListener("click", (event) => {
-    const langBtn = event.target.closest(".lang button");
-    if (langBtn) {
-      apply(langBtn.dataset.lang);
-      return;
-    }
     const layerBtn = event.target.closest("[data-layer]");
     if (layerBtn) {
       const host = document.querySelector("[data-layers]");
@@ -79,5 +129,14 @@
     }
   });
 
-  apply(lang);
+  const promo = document.querySelector(".promo-video");
+  if (promo) {
+    promo.autoplay = false;
+    promo.muted = false;
+    promo.defaultMuted = false;
+    promo.volume = 1;
+    promo.pause();
+  }
+
+  apply();
 })();
