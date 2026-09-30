@@ -579,6 +579,7 @@ namespace currency
 
     std::atomic<bool> m_is_in_checkpoint_zone;
     std::atomic<bool> m_is_blockchain_storing;
+    std::atomic<bool> m_is_irreverseble_prunning_on; // emergency HF truncate: do not re-pool pruned txs
 
     std::string m_config_folder;
     //events

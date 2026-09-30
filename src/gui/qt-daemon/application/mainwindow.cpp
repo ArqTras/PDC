@@ -152,6 +152,17 @@ void MainWindow::on_load_finished(bool ok)
 {
   TRY_ENTRY();
   LOG_PRINT("MainWindow::on_load_finished(ok = " << (ok ? "true" : "false") << ")", LOG_LEVEL_0);
+  if (!ok && m_view && m_view->page())
+  {
+    LOG_ERROR("QWebEngineView failed to load UI page");
+    m_view->setHtml(QStringLiteral(
+      "<html><body style='background:#0a0e27;color:#9ad7ff;font-family:sans-serif;padding:2rem'>"
+      "<h2>PDC UI failed to load</h2>"
+      "<p>Qt WebEngine could not render the wallet page. Check Console.app / pdc logs for "
+      "<code>QtWebEngineProcess</code> or codesign errors.</p>"
+      "</body></html>"));
+    return;
+  }
   if (ok && m_view && m_view->page())
   {
     m_view->setZoomFactor(1.0);
@@ -702,8 +713,22 @@ void MainWindow::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 void MainWindow::load_file(const QString &fileName)
 {
   TRY_ENTRY();
-  LOG_PRINT_L0("Loading html from path: " << fileName.toStdString());
-  QUrl url = QUrl::fromLocalFile(QFileInfo(fileName).absoluteFilePath());
+  const QFileInfo fi(fileName);
+  const QString absolute = fi.absoluteFilePath();
+  LOG_PRINT_L0("Loading html from path: " << absolute.toStdString()
+    << " (exists=" << (fi.exists() ? "yes" : "no") << ")");
+  if (!fi.exists())
+  {
+    const QString err = QStringLiteral(
+      "<html><body style='background:#0a0e27;color:#9ad7ff;font-family:sans-serif;padding:2rem'>"
+      "<h2>PDC UI missing</h2>"
+      "<p>Could not find <code>%1</code>.</p>"
+      "<p>Expected under <code>Contents/Resources/html</code> inside the app bundle.</p>"
+      "</body></html>").arg(absolute.toHtmlEscaped());
+    m_view->setHtml(err);
+    return;
+  }
+  QUrl url = QUrl::fromLocalFile(absolute);
   m_view->load(url);
   CATCH_ENTRY2(void());
 }

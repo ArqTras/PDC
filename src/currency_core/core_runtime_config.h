@@ -65,6 +65,12 @@ namespace currency
       return 0;
     }
 
+    uint64_t get_height_the_hardfork_active_after(size_t hardfork_id) const
+    {
+      CHECK_AND_ASSERT_THROW_MES(hardfork_id < m_total_count, "invalid hardfork id: " << hardfork_id);
+      return m_height_the_hardfork_n_active_after[hardfork_id];
+    }
+
     uint8_t get_block_major_version_by_height(uint64_t height) const
     {      
       if (!this->is_hardfork_active_for_height(1, height))
@@ -144,7 +150,9 @@ namespace currency
     pc.hard_forks.set_hardfork_height(3, ZANO_HARDFORK_03_AFTER_HEIGHT);
     pc.hard_forks.set_hardfork_height(4, ZANO_HARDFORK_04_AFTER_HEIGHT);
     pc.hard_forks.set_hardfork_height(5, ZANO_HARDFORK_05_AFTER_HEIGHT); pc.min_build_numbers_for_hard_forks[5] = ZANO_HARDFORK_05_MIN_BUILD_VER;
-    static_assert(5 + 1 == ZANO_HARDFORKS_TOTAL);
+    pc.hard_forks.set_hardfork_height(6, ZANO_HARDFORK_06_AFTER_HEIGHT); pc.min_build_numbers_for_hard_forks[6] = ZANO_HARDFORK_06_MIN_BUILD_VER;
+    pc.hard_forks.set_hardfork_height(7, ZANO_HARDFORK_07_AFTER_HEIGHT); pc.min_build_numbers_for_hard_forks[7] = ZANO_HARDFORK_07_MIN_BUILD_VER;
+    static_assert(7 + 1 == ZANO_HARDFORKS_TOTAL);
 
     pc.get_core_time = &core_runtime_config::_default_core_time_function;
     bool r = epee::string_tools::hex_to_pod(ALIAS_SHORT_NAMES_VALIDATION_PUB_KEY, pc.alias_validation_pubkey);

@@ -493,7 +493,12 @@ namespace
         return R"("result":[])";
 
       crypto::hash target_boundary = null_hash;
-      difficulty_to_boundary_long(worker_difficulty, target_boundary);
+      // Eth getWork advertises a 256-bit target; RandomARQ/XMRig PoW only constrains
+      // the high 64 bits via check_hash_64 / Diff::toTarget. Put that boundary in the
+      // MS word and leave lower words at max so eth-style clients see the same tip.
+      const uint64_t target64 = difficulty_to_boundary(worker_difficulty);
+      std::memset(&target_boundary, 0xff, sizeof(target_boundary));
+      *reinterpret_cast<uint64_t*>(reinterpret_cast<uint8_t*>(&target_boundary) + 24) = target64;
 
       crypto::hash seed_hash = pow_epoch_to_seed(pow_height_to_epoch(m_block_template_height));
       return R"("result":[")" + pod_to_net_format(m_block_template_header_hash) + R"(",")" + pod_to_net_format(seed_hash) + R"(",")" + pod_to_net_format_reverse(target_boundary) + R"(",")" + pod_to_net_format_reverse(m_block_template_height) + R"("])";
@@ -612,6 +617,8 @@ namespace
 
       // seems we've just found a block!
       // create a block template and push it to the core
+      // RandomARQ / XMRig only use the low 32 bits of the nonce (see fill_pow_blob).
+      CHECK_AND_ASSERT_MES(nonce <= UINT32_MAX, false, "PoW nonce exceeds 32-bit RandomARQ/XMRig space: " << nonce);
       m_block_template.nonce = nonce;
       crypto::hash block_hash = get_block_hash(m_block_template);
 
@@ -1095,6 +1102,7 @@ namespace
 
       uint64_t nonce = 0;
       CHECK_AND_ASSERT_MES(pod_from_net_format_reverse(nonce_str, nonce, true), false, "Can't parse nonce from " << nonce_str);
+      CHECK_AND_ASSERT_MES(nonce <= UINT32_MAX, false, "eth_submitWork nonce exceeds 32-bit RandomARQ/XMRig space: " << nonce);
       crypto::hash header_hash = null_hash;
       CHECK_AND_ASSERT_MES(pod_from_net_format(header_str, header_hash), false, "Can't parse header hash from " << header_str);
 

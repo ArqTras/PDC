@@ -1,5 +1,6 @@
 name: Build GUI
 on:
+  workflow_dispatch:
   push:
   pull_request:
   release:
@@ -99,7 +100,7 @@ jobs:
             -D STATIC=TRUE \
             -D BOOST_ROOT="${BOOST_ROOT_DIR}" \
             -D OPENSSL_ROOT_DIR="${OPENSSL_PREFIX}" \
-            -D CMAKE_PREFIX_PATH=/home/runner/work/pdc/Qt/5.12.12/gcc_64 \
+            -D CMAKE_PREFIX_PATH=/home/runner/work/PDC/Qt/5.12.12/gcc_64 \
             -D BUILD_GUI=ON \
             -D CMAKE_BUILD_TYPE=Release \
             -D BUILD_TESTS=OFF \
@@ -136,37 +137,37 @@ jobs:
           cp ../../utils/buildings/linux/64bit/Pdc.sh Pdc-Gui-${TAG}/
           cp ../../utils/buildings/linux/64bit/Pdc.desktop Pdc-Gui-${TAG}/
           mkdir Pdc-Gui-${TAG}/lib
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libicudata.so.56 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libicui18n.so.56 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libicuuc.so.56 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Core.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5DBus.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Gui.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Network.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5OpenGL.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Positioning.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5PrintSupport.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Qml.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Quick.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Sensors.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Sql.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5Widgets.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5WebEngine.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5WebEngineCore.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5WebEngineWidgets.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5WebChannel.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5XcbQpa.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/lib/libQt5QuickWidgets.so.5 Pdc-Gui-${TAG}/lib/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/libexec/QtWebEngineProcess Pdc-Gui-${TAG}/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/resources/qtwebengine_resources.pak Pdc-Gui-${TAG}/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/resources/qtwebengine_resources_100p.pak Pdc-Gui-${TAG}/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/resources/qtwebengine_resources_200p.pak Pdc-Gui-${TAG}/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/resources/icudtl.dat Pdc-Gui-${TAG}/
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/resources/qtwebengine_devtools_resources.pak Pdc-Gui-${TAG}/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libicudata.so.56 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libicui18n.so.56 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libicuuc.so.56 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Core.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5DBus.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Gui.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Network.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5OpenGL.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Positioning.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5PrintSupport.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Qml.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Quick.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Sensors.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Sql.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5Widgets.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5WebEngine.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5WebEngineCore.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5WebEngineWidgets.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5WebChannel.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5XcbQpa.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/lib/libQt5QuickWidgets.so.5 Pdc-Gui-${TAG}/lib/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/libexec/QtWebEngineProcess Pdc-Gui-${TAG}/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/resources/qtwebengine_resources.pak Pdc-Gui-${TAG}/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/resources/qtwebengine_resources_100p.pak Pdc-Gui-${TAG}/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/resources/qtwebengine_resources_200p.pak Pdc-Gui-${TAG}/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/resources/icudtl.dat Pdc-Gui-${TAG}/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/resources/qtwebengine_devtools_resources.pak Pdc-Gui-${TAG}/
           mkdir Pdc-Gui-${TAG}/lib/platforms
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/plugins/platforms/libqxcb.so Pdc-Gui-${TAG}/lib/platforms/
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/plugins/platforms/libqxcb.so Pdc-Gui-${TAG}/lib/platforms/
           mkdir Pdc-Gui-${TAG}/xcbglintegrations
-          cp /home/runner/work/pdc/Qt/5.12.12/gcc_64/plugins/xcbglintegrations/libqxcb-glx-integration.so Pdc-Gui-${TAG}/xcbglintegrations
+          cp /home/runner/work/PDC/Qt/5.12.12/gcc_64/plugins/xcbglintegrations/libqxcb-glx-integration.so Pdc-Gui-${TAG}/xcbglintegrations
           # upload-artifact zip of bare dirs drops +x; set modes before tar and publish the archive.
           chmod a+x Pdc-Gui-${TAG}/pdcd Pdc-Gui-${TAG}/connectivity_tool Pdc-Gui-${TAG}/simplewallet Pdc-Gui-${TAG}/Pdc \
             Pdc-Gui-${TAG}/Pdc.sh Pdc-Gui-${TAG}/QtWebEngineProcess
@@ -191,7 +192,7 @@ jobs:
           rm -rf /home/runner/work/_temp/
           wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
           chmod 777 linuxdeployqt-continuous-x86_64.AppImage
-          /home/runner/work/pdc/pdc/build/src/linuxdeployqt-continuous-x86_64.AppImage ./Pdc-GUI-${TAG}/usr/share/applications/Pdc.desktop -qmake=/home/runner/work/pdc/Qt/5.12.12/gcc_64/bin/qmake
+          /home/runner/work/PDC/PDC/build/src/linuxdeployqt-continuous-x86_64.AppImage ./Pdc-GUI-${TAG}/usr/share/applications/Pdc.desktop -qmake=/home/runner/work/PDC/Qt/5.12.12/gcc_64/bin/qmake
           wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod 777 appimagetool-x86_64.AppImage
           rm -rf Pdc-GUI-${TAG}/AppRun
@@ -201,7 +202,7 @@ jobs:
           chmod 777 Pdc-GUI-${TAG}/*/*/*
           chmod 777 Pdc-GUI-${TAG}/*/*/*/*
           chmod 777 Pdc-GUI-${TAG}/*/*/*/*/*
-          ARCH=x86_64 /home/runner/work/pdc/pdc/build/src/appimagetool-x86_64.AppImage ./Pdc-GUI-${TAG} Pdc-GUI-${TAG}-${LABEL}.AppImage
+          ARCH=x86_64 /home/runner/work/PDC/PDC/build/src/appimagetool-x86_64.AppImage ./Pdc-GUI-${TAG} Pdc-GUI-${TAG}-${LABEL}.AppImage
           chmod a+x Pdc-GUI-${TAG}-${LABEL}.AppImage
           # Tag pushes name packages with the tag; copy to sha names for artifact upload.
           # Branch pushes already use sha names — skip same-file cp (GNU cp errors).
@@ -320,7 +321,7 @@ jobs:
           make -j"$(sysctl -n hw.ncpu)"
           ccache -s
 
-       # Prepare for deploy
+       # Prepare for deploy: package Pdc.app (GUI) with helpers + html
       - name: Prepare for Deploy
         id: before_deploy
         env:
@@ -329,22 +330,59 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build/src
           ls
-          TARGETS="pdcd connectivity_tool simplewallet"
-          if [[ "${LABEL}" != "aarch64" ]]; then strip ${TARGETS}; fi
-          for b in ${TARGETS}; do
+          test -d Pdc.app
+          test -x Pdc.app/Contents/MacOS/Pdc
+
+          # Bundle CLI helpers next to the GUI binary (same as utils/build_script_mac_osx.sh).
+          cp -f pdcd simplewallet connectivity_tool Pdc.app/Contents/MacOS/
+          chmod a+x Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool
+
+          # Deploy Qt frameworks/plugins into the app bundle.
+          MACDEPLOYQT="$(brew --prefix qt)/bin/macdeployqt"
+          if [[ ! -x "$MACDEPLOYQT" ]]; then
+            MACDEPLOYQT="$(find "$(brew --prefix)" -name macdeployqt 2>/dev/null | head -1)"
+          fi
+          test -x "$MACDEPLOYQT"
+          # From build/src, repo root is ../.. (not ../../..). Skip ad-hoc codesign
+          # during macdeployqt; we sign inside-out afterwards.
+          "$MACDEPLOYQT" Pdc.app -always-overwrite -no-codesign || true
+
+          # Homebrew Qt leaves QtWebEngineProcess on absolute keg paths; rewrite
+          # them to @rpath before codesign or the UI stays blank on user Macs.
+          chmod +x ../../utils/macos_fix_qt_webengine_rpaths.sh
+          ../../utils/macos_fix_qt_webengine_rpaths.sh Pdc.app
+
+          # Ship HTML under Resources (MacOS is code-only for codesign) + app icon.
+          mkdir -p Pdc.app/Contents/Resources
+          rsync -a ../../src/gui/qt-daemon/layout/html Pdc.app/Contents/Resources/ \
+            --exclude less --exclude package.json --exclude gulpfile.js
+          # Drop any stale CMake POST_BUILD copy under MacOS so codesign stays clean.
+          rm -rf Pdc.app/Contents/MacOS/html
+          cp -f ../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources/
+
+          # Ad-hoc sign inside-out (never --deep with app entitlements): that
+          # would overwrite QtWebEngineProcess JIT entitlements and blank the UI.
+          chmod +x ../../utils/macos_adhoc_codesign.sh
+          ../../utils/macos_adhoc_codesign.sh Pdc.app ../../utils/macos_entitlements.plist
+
+          # Sanity: GUI binary + html present; helpers must not pull non-portable paths.
+          test -d Pdc.app/Contents/Resources/html
+          test ! -e Pdc.app/Contents/MacOS/html
+          HELPER="$(find Pdc.app/Contents -type f -path '*/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess' | head -1)"
+          test -n "$HELPER"
+          for b in Pdc.app/Contents/MacOS/Pdc Pdc.app/Contents/MacOS/pdcd Pdc.app/Contents/MacOS/simplewallet Pdc.app/Contents/MacOS/connectivity_tool "$HELPER"; do
             echo "==== otool $b ===="
             otool -L "$b"
-            if otool -L "$b" | grep -E '@rpath/libboost_|/Users/runner/|libboost_[^ ]*\.dylib|/opt/homebrew/.*/libssl|/opt/homebrew/.*/libcrypto|/usr/local/opt/openssl'; then
-              echo "ERROR: $b still depends on a non-portable Boost/OpenSSL path"
+            if otool -L "$b" | grep -E '@rpath/libboost_|/Users/runner/|libboost_[^ ]*\.dylib|/opt/homebrew/|/usr/local/opt/'; then
+              echo "ERROR: $b still depends on a non-portable Homebrew/Boost/OpenSSL path"
               exit 1
             fi
           done
-          rm -rf Pdc-Gui-${TAG}
-          mkdir Pdc-Gui-${TAG}
-          cp ${TARGETS} Pdc-Gui-${TAG}/
-          # upload-artifact zip of bare dirs drops +x; set modes before tar and publish the archive.
-          chmod a+x Pdc-Gui-${TAG}/*
-          tar cvfz Pdc-Gui-${TAG}-${LABEL}.tar.gz Pdc-Gui-${TAG}/
+
+          rm -rf "Pdc-Gui-${TAG}"
+          mkdir "Pdc-Gui-${TAG}"
+          ditto Pdc.app "Pdc-Gui-${TAG}/Pdc.app"
+          tar cvfz "Pdc-Gui-${TAG}-${LABEL}.tar.gz" "Pdc-Gui-${TAG}/"
           if [[ "${TAG}" != "${COMMIT_SHA}" ]]; then
             cp -f "Pdc-Gui-${TAG}-${LABEL}.tar.gz" "Pdc-Gui-${COMMIT_SHA}-${LABEL}.tar.gz"
           fi

@@ -274,8 +274,16 @@
 #define ZANO_HARDFORK_03_AFTER_HEIGHT                   60   // 2021-06-01 23:28:10
 #define ZANO_HARDFORK_04_AFTER_HEIGHT                   100   // 2024-03-21 11:49:55
 #define ZANO_HARDFORK_04_TIMESTAMP_ACTUAL               1711021795ull // block 100, 2024-03-21 11:49:55 UTC
-#define ZANO_HARDFORK_05_AFTER_HEIGHT                   999999999999999999  
+// Jump straight to the post-gateway-cut-off schedule from block 1200 (Zano HF7
+// emergency: HF6+HF7 share the same activation height so the vulnerable gateway
+// window never opens under the most-recent fork id). PDC has no gateway types
+// yet; this still truncates any chain past 1200 and activates HF5+ from there.
+#define ZANO_HARDFORK_05_AFTER_HEIGHT                   1199
 #define ZANO_HARDFORK_05_MIN_BUILD_VER                  3
+#define ZANO_HARDFORK_06_AFTER_HEIGHT                   1199
+#define ZANO_HARDFORK_06_MIN_BUILD_VER                  3
+#define ZANO_HARDFORK_07_AFTER_HEIGHT                   1199
+#define ZANO_HARDFORK_07_MIN_BUILD_VER                  3
 #else
 // Testnet
 #define ZANO_HARDFORK_01_AFTER_HEIGHT                   0
@@ -283,8 +291,12 @@
 #define ZANO_HARDFORK_03_AFTER_HEIGHT                   0
 #define ZANO_HARDFORK_04_AFTER_HEIGHT                   100
 #define ZANO_HARDFORK_04_TIMESTAMP_ACTUAL               1712800000ull // block 100, 2024-00-00 00:00:00 UTC
-#define ZANO_HARDFORK_05_AFTER_HEIGHT                   200
+#define ZANO_HARDFORK_05_AFTER_HEIGHT                   1199
 #define ZANO_HARDFORK_05_MIN_BUILD_VER                  356
+#define ZANO_HARDFORK_06_AFTER_HEIGHT                   1199
+#define ZANO_HARDFORK_06_MIN_BUILD_VER                  356
+#define ZANO_HARDFORK_07_AFTER_HEIGHT                   1199
+#define ZANO_HARDFORK_07_MIN_BUILD_VER                  356
 #endif
 
 
@@ -294,7 +306,10 @@
 #define ZANO_HARDFORK_03                                3
 #define ZANO_HARDFORK_04_ZARCANUM                       4
 #define ZANO_HARDFORK_05                                5
-#define ZANO_HARDFORKS_TOTAL                            6
+#define ZANO_HARDFORK_06                                6
+#define ZANO_HARDFORK_07                                7
+#define ZANO_HARDFORKS_TOTAL                            8
+#define ZANO_ACTIVE_HARDFORKS_TOTAL                     8
 
 
 

@@ -90,15 +90,23 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Fix Homebrew-style absolute Qt linkage on QtWebEngineProcess when present.
+if [ -x ../../../utils/macos_fix_qt_webengine_rpaths.sh ]; then
+  chmod +x ../../../utils/macos_fix_qt_webengine_rpaths.sh
+  ../../../utils/macos_fix_qt_webengine_rpaths.sh ./Pdc.app || true
+fi
 
 rm -rf Pdc.app/Contents/Frameworks/libboost*.dylib
 
 
-rsync -a ../../../src/gui/qt-daemon/layout/html Pdc.app/Contents/MacOS --exclude less --exclude package.json --exclude gulpfile.js
+mkdir -p Pdc.app/Contents/Resources
+rsync -a ../../../src/gui/qt-daemon/layout/html Pdc.app/Contents/Resources --exclude less --exclude package.json --exclude gulpfile.js
 if [ $? -ne 0 ]; then
-    echo "Failed to cp html to MacOS"
+    echo "Failed to cp html to Resources"
     exit 1
 fi
+# Drop any stale CMake POST_BUILD copy under MacOS so codesign stays clean.
+rm -rf Pdc.app/Contents/MacOS/html
 
 cp ../../../src/gui/qt-daemon/app.icns Pdc.app/Contents/Resources
 if [ $? -ne 0 ]; then
@@ -106,7 +114,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-codesign -s "Pdc" --timestamp --options runtime -f --entitlements ../../../utils/macos_entitlements.plist --deep ./Pdc.app
+# Inside-out codesign — never `codesign --deep` with app entitlements
+# (that blanks Qt WebEngine by overwriting QtWebEngineProcess JIT entitlements).
+chmod +x ../../../utils/macos_codesign_app.sh
+SIGN_IDENTITY="Pdc" SIGN_OPTIONS="--options runtime --timestamp" \
+  ../../../utils/macos_codesign_app.sh ./Pdc.app ../../../utils/macos_entitlements.plist
 if [ $? -ne 0 ]; then
     echo "Failed to sign Pdc.app"
     exit 1
@@ -162,7 +174,7 @@ popd
 read checksum <<< $( shasum -a 256 $package_filepath | awk '/^/ { print $1 }' )
 
 mail_msg="New ${build_prefix_label}${testnet_label}build for macOS-x64:<br>
-<a href='https://github.com/ArqTras/pdc/releases'>$package_filename</a><br>
+<a href='https://github.com/PrivacyDataCoin-Project/PDC/releases'>$package_filename</a><br>
 sha256: $checksum"
 
 echo "$mail_msg"
