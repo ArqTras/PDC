@@ -48,7 +48,7 @@ SUMMARIES = {
     "use/getting-started": "Install the current release, sync, and make a wallet.",
     "use/wallets": "Desktop wallet, simplewallet, and address types.",
     "use/security": "What stays private, and what you still have to protect.",
-    "use/troubleshooting": "Genesis, ports, sync, and the v1 reset.",
+    "use/troubleshooting": "Genesis, ports, and sync.",
     "build/from-source": "Clone, dependencies, and the daemon build.",
     "build/rpc": "JSON-RPC on port 19211, bound to localhost.",
     "build/assets": "Issue a token without revealing transfer amounts.",
@@ -129,7 +129,7 @@ def page(slug: str, title: str, section: str, body_html: str, toc_html: str):
       <img class="brand-mark" src="{prefix}graphics/pdc-mark.png" width="42" height="42" alt="">
       <span><strong>PDC</strong><small>Documentation</small></span>
     </a>
-    <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a>
+    <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a>
     <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
     {render_nav(slug, prefix)}
   </aside>
@@ -140,7 +140,7 @@ def page(slug: str, title: str, section: str, body_html: str, toc_html: str):
         <h1>{title}</h1>
         {body_html}
         {pager}
-        <p class="footer">Edition <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a> follows the latest release of <a href="https://github.com/PrivacyDataCoin-Project/pdc">PrivacyDataCoin-Project/pdc</a>. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
+        <p class="footer">Edition <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a> follows the latest release of <a href="https://github.com/PrivacyDataCoin-Project/pdc">PrivacyDataCoin-Project/pdc</a>. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
       </article>
     </main>
     <aside class="toc">

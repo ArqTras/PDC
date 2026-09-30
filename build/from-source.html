@@ -20,7 +20,7 @@
       <img class="brand-mark" src="../graphics/pdc-mark.png" width="42" height="42" alt="">
       <span><strong>PDC</strong><small>Documentation</small></span>
     </a>
-    <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a>
+    <a class="release-chip" data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a>
     <input class="search" type="search" placeholder="Filter topics" aria-label="Filter topics">
     <div class="nav-group"><h2>Learn</h2><a href="../learn/what-is-pdc.html">What PDC is</a><a href="../learn/how-it-works.html">How PDC works</a><a href="../learn/faq.html">FAQ</a></div>
 <div class="nav-group"><h2>Use</h2><a href="../use/getting-started.html">Getting started</a><a href="../use/wallets.html">Wallets</a><a href="../use/security.html">Security and privacy</a><a href="../use/troubleshooting.html">Troubleshooting</a></div>
@@ -34,8 +34,8 @@
       <article>
         <p class="kicker">Build</p>
         <h1>Build from source</h1>
-        <p>The repository is <a href="https://github.com/ArqTras/pdc">github.com/ArqTras/pdc</a>, branch <code>pdc</code>. Clone it with submodules. A clone without <code>--recursive</code> misses the bundled libraries and will not configure.</p>
-<pre><code class="language-text">git clone --recursive https://github.com/ArqTras/pdc.git -b pdc
+        <p>The repository is <a href="https://github.com/PrivacyDataCoin-Project/pdc">github.com/PrivacyDataCoin-Project/pdc</a>, branch <code>master</code>. Clone it with submodules. A clone without <code>--recursive</code> misses the bundled libraries and will not configure.</p>
+<pre><code class="language-text">git clone --recursive https://github.com/PrivacyDataCoin-Project/PDC.git
 </code></pre>
 <p>The README in that repository is the long-form build guide. This page is the map. If a checksum or an installer URL in the README and a newer release note disagree, follow the file you are actually building.</p>
 <h2 id="what-the-build-produces">What the build produces</h2>
@@ -102,7 +102,7 @@
 </tr>
 </tbody>
 </table>
-<p>Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The GUI AppImage in release <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a> is built for Ubuntu 22.04.</p>
+<p>Recommended Linux in the README is Ubuntu 20.04 or 22.04 LTS. The GUI AppImage in release <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a> is built for Ubuntu 22.04.</p>
 <p>Server packages from the README:</p>
 <pre><code class="language-text">sudo apt-get install -y build-essential g++ curl autotools-dev libicu-dev libbz2-dev cmake git screen checkinstall zlib1g-dev
 </code></pre>
@@ -120,7 +120,7 @@ make -j1 daemon simplewallet
 <p>The default data directory is <code>~/.PDC</code> on Linux, <code>~/Library/Application Support/PDC</code> on macOS, and the roaming <code>PDC</code> folder on 64-bit Windows. <code>--data-dir</code> overrides it.</p>
 <p>Inside that folder the chain uses a directory whose name starts with <code>blockchain_</code> and ends with <code>_v2</code>. The peer cache is <code>p2pstate.bin</code>. The GUI keeps <code>gui_settings.json</code> and <code>gui_secure_conf.bin</code>. The miner config file name is <code>miner_conf.json</code>.</p>
         <nav class="pager"><a href="../use/troubleshooting.html">← Troubleshooting</a><a href="../build/rpc.html">Node RPC →</a></nav>
-        <p class="footer">Edition <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.1.0</span></a> follows the latest release of <a href="https://github.com/PrivacyDataCoin-Project/pdc">PrivacyDataCoin-Project/pdc</a>. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
+        <p class="footer">Edition <a data-doc-release href="https://github.com/PrivacyDataCoin-Project/pdc/releases/latest"><span data-doc-version>v2.2.0</span></a> follows the latest release of <a href="https://github.com/PrivacyDataCoin-Project/pdc">PrivacyDataCoin-Project/pdc</a>. The public site is <a href="https://privacydatacoin.com/">privacydatacoin.com</a>. The block explorer is <a href="https://explorer.privacydatacoin.com/">explorer.privacydatacoin.com</a>.</p>
       </article>
     </main>
     <aside class="toc">
